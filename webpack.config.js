@@ -9,6 +9,13 @@ module.exports = {
     title: 'Todo List',
     template: 'src/index.html'
   })],
+  module: {
+    rules: [
+      {
+      test: /\.css$/,
+      use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+  }]
+},
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
