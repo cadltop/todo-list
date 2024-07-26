@@ -1,0 +1,25 @@
+* {
+    border: 2px red  solid;
+}
+body {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    min-height: 100vh;
+    max-width: 100vw;
+}
+#sidebar, #content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.lists {
+    height: 100%;
+}
+.action, .list {
+    display: flex;
+}
+.action > img, .list > img {
+    width: 30px;
+    height: auto;
+}
