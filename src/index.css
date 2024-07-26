@@ -1,6 +1,3 @@
-* {
-    border: 4px black  solid;
-}
 @font-face {
     font-family: roboto;
     src: url(../res/font.ttf);
@@ -21,10 +18,11 @@ aside, main {
 #lists {
     height: 100%;
 }
-.action, .list {
+.title, .action, .project {
     display: flex;
+    gap: 10px;
 }
-.action > img, .list > img {
+.title img, .action img, .project img {
     width: 30px;
     height: auto;
 }
