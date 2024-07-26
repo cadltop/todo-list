@@ -6,7 +6,8 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   plugins: [new HtmlWebpackPlugin({
-    template: 'src/index.html'
+    template: 'src/index.html',
+    clean: true
   })],
   module: {
     rules: [
