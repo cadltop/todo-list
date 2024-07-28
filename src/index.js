@@ -13,10 +13,19 @@ for(let i = 0; i < clickable.length; i++) {
         clickable[i].style = 'background-color: ';
     })
 }
-
+function emptyMain() {
+    const mainSection = document.querySelector('main');
+    if(mainSection.lastChild){
+        if(mainSection.lastChild !== document.querySelector('h1')){
+            mainSection.removeChild(mainSection.lastChild);
+        }
+    }
+}
 clickable[0].addEventListener('click', () => {
+    emptyMain();
     setNewTask();
 })
 clickable[1].addEventListener('click', () => {
+    emptyMain();
     setNewProject();
 })
