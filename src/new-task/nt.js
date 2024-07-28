@@ -1,7 +1,5 @@
 import './nt.css';
 export function setNewTask(){
-    const mainSection = document.querySelector('main');
-    
     const header = document.querySelector('h1');
     header.innerHTML = 'New Task';
 
@@ -19,27 +17,22 @@ export function setNewTask(){
 
     const priorityLabel = makeLabel('Priority');
     const prioritySelect = makeInput('select', 'priority', undefined);
-    
-    const lowOption = makeOption('Low');
-    const mediumOption = makeOption('Medium');
-    const highOption = makeOption('High');
+
+    const projectLabel = makeLabel('Project');
+    const projectSelect = makeInput('select', 'project', undefined);
 
     const saveButton = document.createElement('button');
     saveButton.type = 'submit';
     saveButton.innerHTML = 'Save';
-
+    
+    const mainSection = document.querySelector('main');
     mainSection.append(form);
-    form.append(titleLabel);
-    form.append(titleInput);
-    form.append(descriptionLabel);
-    form.append(descriptionTextarea);
-    form.append(dueDateLabel);
-    form.append(dueDateInput);
-    form.append(priorityLabel);
-    form.append(prioritySelect);
-    prioritySelect.append(lowOption);
-    prioritySelect.append(mediumOption);
-    prioritySelect.append(highOption);
+
+    form.append(titleLabel, titleInput);
+    form.append(descriptionLabel, descriptionTextarea);
+    form.append(dueDateLabel, dueDateInput);
+    form.append(priorityLabel, prioritySelect);
+    form.append(projectLabel, projectSelect);
     form.append(saveButton);
 
     function makeLabel(forVal) {
@@ -52,11 +45,23 @@ export function setNewTask(){
         const input = document.createElement(`${element}`);
         input.id = idVal;
         if(typeVal) input.type = typeVal;
+        if(idVal === 'priority'){
+            const options = [makeOption('Low'), makeOption('Medium'), makeOption('High')];
+            input.append(options[0], options[1], options[2]);
+        }
+        if(idVal === 'project'){
+            const projects = document.querySelectorAll('.project > p');
+            for(let name of projects) {
+                const option = makeOption(`${name.innerHTML}`);
+                input.append(option);
+            }
+        }
         return input;
     }
     function makeOption(valueVal){
         const option = document.createElement('option');
-        option.value = valueVal.toLowerCase();
+        let valueNew = (valueVal.match(' ') !== null) ? valueVal.replace(' ', '-'): valueVal;
+        option.value = valueNew.toLowerCase();
         option.innerHTML = `${valueVal}`;
         return option;
     }
