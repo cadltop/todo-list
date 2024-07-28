@@ -23,7 +23,14 @@ export function setNewTask(){
     const priorityLabel = makeLabel('Priority');
     const prioritySelect = document.createElement('select');
     prioritySelect.id = 'priority';
+    
+    const lowOption = makeOption('Low');
+    const mediumOption = makeOption('Medium');
+    const highOption = makeOption('High');
 
+    const saveButton = document.createElement('button');
+    saveButton.type = 'submit';
+    saveButton.innerHTML = 'Save';
 
     mainSection.append(form);
     form.append(titleLabel);
@@ -32,11 +39,23 @@ export function setNewTask(){
     form.append(descriptionTextarea);
     form.append(dueDateLabel);
     form.append(dueDateInput);
+    form.append(priorityLabel);
+    form.append(prioritySelect);
+    prioritySelect.append(lowOption);
+    prioritySelect.append(mediumOption);
+    prioritySelect.append(highOption);
+    form.append(saveButton);
 
-    function makeLabel(value) {
+    function makeLabel(forVal) {
         const label = document.createElement('label');
-        label.htmlFor = value.toLowerCase();
-        label.innerHTML = `${value}:`
+        label.htmlFor = forVal.toLowerCase();
+        label.innerHTML = `${forVal}:`
         return label;
+    }
+    function makeOption(valueVal){
+        const option = document.createElement('option');
+        option.value = valueVal.toLowerCase();
+        option.innerHTML = `${valueVal}`;
+        return option;
     }
 }
