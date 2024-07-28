@@ -11,11 +11,16 @@ export function setNewProject(){
     const tasksLabel = makeLabel('Tasks');
     const tasksSelect = makeInput('select', 'tasks', undefined);
 
+    const saveButton = document.createElement('button');
+    saveButton.type = 'submit';
+    saveButton.innerHTML = 'Save';
+
     const mainSection = document.querySelector('main');
     mainSection.append(form);
 
     form.append(nameLabel, nameInput);
     form.append(tasksLabel, tasksSelect);
+    form.append(saveButton);
 
     function makeLabel(forVal) {
         const label = document.createElement('label');
