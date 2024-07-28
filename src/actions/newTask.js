@@ -1,4 +1,4 @@
-import './nt.css';
+import './actions.css';
 export function setNewTask(){
     const header = document.querySelector('h1');
     header.innerHTML = 'New Task';

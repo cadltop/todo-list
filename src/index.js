@@ -1,6 +1,6 @@
 import 'normalize.css';
 import './index.css';
-import { setNewTask } from './new-task/nt.js';
+import { setNewTask } from './actions/newTask.js';
 
 const clickable = document.querySelectorAll('.action, .project');
 for(let i = 0; i < clickable.length; i++) {
