@@ -1,29 +1,24 @@
 import './nt.css';
 export function setNewTask(){
     const mainSection = document.querySelector('main');
+    
     const header = document.querySelector('h1');
     header.innerHTML = 'New Task';
 
     const form = document.createElement('form');
     
     const titleLabel = makeLabel('Title');
-    const titleInput = document.createElement('input');
-    titleInput.type = 'text';
-    titleInput.id = 'title';
+    const titleInput = makeInput('input', 'title', 'text');
     
     const descriptionLabel = makeLabel('Description');
-    const descriptionTextarea = document.createElement('textarea');
-    descriptionTextarea.id = 'description';
+    const descriptionTextarea = makeInput('textarea', 'description', undefined);
 
     const dueDateLabel = makeLabel('due-date');
     dueDateLabel.innerHTML = 'Due Date:';
-    const dueDateInput = document.createElement('input');
-    dueDateInput.type = 'date';
-    dueDateInput.id = 'due-date';
+    const dueDateInput = makeInput('input', 'due-date', 'date');
 
     const priorityLabel = makeLabel('Priority');
-    const prioritySelect = document.createElement('select');
-    prioritySelect.id = 'priority';
+    const prioritySelect = makeInput('select', 'priority', undefined);
     
     const lowOption = makeOption('Low');
     const mediumOption = makeOption('Medium');
@@ -52,6 +47,12 @@ export function setNewTask(){
         label.htmlFor = forVal.toLowerCase();
         label.innerHTML = `${forVal}:`
         return label;
+    }
+    function makeInput(element, idVal, typeVal){
+        const input = document.createElement(`${element}`);
+        input.id = idVal;
+        if(typeVal) input.type = typeVal;
+        return input;
     }
     function makeOption(valueVal){
         const option = document.createElement('option');
