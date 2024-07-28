@@ -2,7 +2,9 @@
     font-family: roboto;
     src: url(../res/font.ttf);
 }
-
+:root {
+    --green: #30be62;
+}
 body {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -12,21 +14,17 @@ body {
 }
 
 aside, main {
-    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 aside {
     background-color: #dfffea;
     padding: 15px;
+    gap: 15px;
 }
 
 section {
     padding: 15px;
-}
-#projects {
-    height: 100%;
 }
 
 section > * {
@@ -49,6 +47,15 @@ section > div > * {
 section > div > img {
     width: 30px;
     height: 30px;
+}
+
+main {
+    padding: 45px;
+}
+
+main > * {
+    margin: 0;
+    padding: 20px;
 }
 h1 {
     margin: 0;
