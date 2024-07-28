@@ -11,4 +11,6 @@ for(let i = 0; i < clickable.length; i++) {
         clickable[i].style = 'background-color: ';
     })
 }
-//setNewTask()
+clickable[0].addEventListener('click', () => {
+    setNewTask();
+})
