@@ -31,8 +31,9 @@ select {
     background-color: white;
 }
 button {
-    padding: 7px 20px;
+    padding: 10px 30px;
     background-color: var(--green);
     color: white;
     border: none;
+    font-weight: bold;
 }
