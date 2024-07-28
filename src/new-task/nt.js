@@ -45,24 +45,26 @@ export function setNewTask(){
         const input = document.createElement(`${element}`);
         input.id = idVal;
         if(typeVal) input.type = typeVal;
-        if(idVal === 'priority'){
-            const options = [makeOption('Low'), makeOption('Medium'), makeOption('High')];
-            input.append(options[0], options[1], options[2]);
+        switch(idVal) {
+            case 'priority':
+                const options = [makeOption('Low'), makeOption('Medium'), makeOption('High')];
+                input.append(options[0], options[1], options[2]);
+                break;
+            case 'project':
+                const projects = document.querySelectorAll('.project > p');
+                for(let name of projects) {
+                    const option = makeOption(`${name.innerHTML}`);
+                    input.append(option);
+                }
+                break;
         }
-        if(idVal === 'project'){
-            const projects = document.querySelectorAll('.project > p');
-            for(let name of projects) {
-                const option = makeOption(`${name.innerHTML}`);
-                input.append(option);
-            }
+        function makeOption(valueVal){
+            const option = document.createElement('option');
+            let valueNew = (valueVal.match(' ') !== null) ? valueVal.replace(' ', '-'): valueVal;
+            option.value = valueNew.toLowerCase();
+            option.innerHTML = `${valueVal}`;
+            return option;
         }
         return input;
-    }
-    function makeOption(valueVal){
-        const option = document.createElement('option');
-        let valueNew = (valueVal.match(' ') !== null) ? valueVal.replace(' ', '-'): valueVal;
-        option.value = valueNew.toLowerCase();
-        option.innerHTML = `${valueVal}`;
-        return option;
     }
 }
