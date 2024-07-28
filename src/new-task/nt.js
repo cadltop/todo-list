@@ -1,3 +1,4 @@
+import './nt.css';
 export function setNewTask(){
     const mainSection = document.querySelector('main');
     const header = document.querySelector('h1');
