@@ -1,8 +1,5 @@
 import './actions.css';
-export function setNewTask(){
-    const header = document.querySelector('h1');
-    header.innerHTML = 'New Task';
-
+const newTask = (function() {
     const form = document.createElement('form');
     
     const titleLabel = makeLabel('Title');
@@ -25,16 +22,19 @@ export function setNewTask(){
     saveButton.type = 'submit';
     saveButton.innerHTML = 'Save';
     
-    const mainSection = document.querySelector('main');
-    mainSection.append(form);
+    const renderWindow = function() {
+        const header = document.querySelector('h1');
+        header.innerHTML = 'New Task';
+        const mainSection = document.querySelector('main');
+        mainSection.append(form);
 
-    form.append(titleLabel, titleInput);
-    form.append(descriptionLabel, descriptionTextarea);
-    form.append(dueDateLabel, dueDateInput);
-    form.append(priorityLabel, prioritySelect);
-    form.append(projectLabel, projectSelect);
-    form.append(saveButton);
-
+        form.append(titleLabel, titleInput);
+        form.append(descriptionLabel, descriptionTextarea);
+        form.append(dueDateLabel, dueDateInput);
+        form.append(priorityLabel, prioritySelect);
+        form.append(projectLabel, projectSelect);
+        form.append(saveButton);
+    }
     function makeLabel(forVal) {
         const label = document.createElement('label');
         label.htmlFor = forVal.toLowerCase();
@@ -67,4 +67,8 @@ export function setNewTask(){
         }
         return input;
     }
-}
+
+    return {titleInput, descriptionTextarea, dueDateInput, 
+        prioritySelect, saveButton, renderWindow};
+})();
+export {newTask}
