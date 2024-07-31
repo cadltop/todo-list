@@ -12,6 +12,13 @@ const taskControl = (function(){
 
         const task = new Task(title, description, dueDate, priority);
         projects[0].tasks.push(task);
+        for(let p in newTask){
+            if(p === 'saveButton') {
+                break;
+            } else {
+                newTask[p].value = '';
+            }
+        }
         event.preventDefault();
     })
     return {openWindow};
