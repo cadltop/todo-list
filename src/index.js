@@ -1,9 +1,8 @@
 import 'normalize.css';
 import './index.css';
 
-import { setNewProject } from './actions/newProject.js';
 import { taskControl } from './controllers/taskControl.js';
-import { Project } from './classes/project.js';
+import { projectControl } from './controllers/projectControl.js';
 
 const clickable = document.querySelectorAll('.action, .project');
 for(let i = 0; i < clickable.length; i++) {
@@ -21,7 +20,7 @@ clickable[0].addEventListener('click', () => {
 })
 clickable[1].addEventListener('click', () => {
     emptyMain();
-    setNewProject();
+    projectControl.openWindow();
 })
 
 function emptyMain() {
@@ -32,6 +31,3 @@ function emptyMain() {
         }
     }
 }
-let projects = [];
-projects.push(new Project('All Tasks'));
-export {projects};
