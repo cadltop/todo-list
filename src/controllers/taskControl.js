@@ -1,6 +1,6 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
-import { allTasks } from '../index.js';
+import { projects } from '../index.js';
 
 const taskControl = (function(){
     const openWindow = newTask.renderWindow;
@@ -11,7 +11,7 @@ const taskControl = (function(){
         const priority = newTask.prioritySelect.value;
 
         const task = new Task(title, description, dueDate, priority);
-        allTasks.push(task);
+        projects[0].tasks.push(task);
         event.preventDefault();
     })
     return {openWindow};
