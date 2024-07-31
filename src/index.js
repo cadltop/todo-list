@@ -3,6 +3,7 @@ import './index.css';
 
 import { setNewProject } from './actions/newProject.js';
 import { taskControl } from './controllers/taskControl.js';
+import { Project } from './classes/project.js';
 
 const clickable = document.querySelectorAll('.action, .project');
 for(let i = 0; i < clickable.length; i++) {
@@ -14,7 +15,6 @@ for(let i = 0; i < clickable.length; i++) {
     })
 }
 
-let allTasks = [];
 clickable[0].addEventListener('click', () => {
     emptyMain();
     taskControl.openWindow();
@@ -32,5 +32,6 @@ function emptyMain() {
         }
     }
 }
-
-export {allTasks};
+let projects = [];
+projects.push(new Project('All Tasks'));
+export {projects};
