@@ -1,6 +1,6 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
-import { projects } from '../index.js';
+import { projects } from '../data.js';
 
 const taskControl = (function(){
     const openWindow = newTask.renderWindow;
