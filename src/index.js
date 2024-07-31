@@ -1,8 +1,8 @@
 import 'normalize.css';
 import './index.css';
 
-import { setNewTask } from './actions/newTask.js';
 import { setNewProject } from './actions/newProject.js';
+import { taskControl } from './controllers/taskControl.js';
 
 const clickable = document.querySelectorAll('.action, .project');
 for(let i = 0; i < clickable.length; i++) {
@@ -13,6 +13,17 @@ for(let i = 0; i < clickable.length; i++) {
         clickable[i].style = 'background-color: ';
     })
 }
+
+let allTasks = [];
+clickable[0].addEventListener('click', () => {
+    emptyMain();
+    taskControl.openWindow();
+})
+clickable[1].addEventListener('click', () => {
+    emptyMain();
+    setNewProject();
+})
+
 function emptyMain() {
     const mainSection = document.querySelector('main');
     if(mainSection.lastChild){
@@ -21,11 +32,5 @@ function emptyMain() {
         }
     }
 }
-clickable[0].addEventListener('click', () => {
-    emptyMain();
-    setNewTask();
-})
-clickable[1].addEventListener('click', () => {
-    emptyMain();
-    setNewProject();
-})
+
+export {allTasks};
