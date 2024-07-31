@@ -1,26 +1,31 @@
 import './actions.css';
-export function setNewProject(){
-    const header = document.querySelector('h1');
-    header.innerHTML = 'New Project';
+import { projects } from '../data.js';
 
+const newProject = (function() {
     const form = document.createElement('form');
 
     const nameLabel = makeLabel('Name');
     const nameInput = makeInput('input', 'name', 'text');
 
     const tasksLabel = makeLabel('Tasks');
-    const tasksSelect = makeInput('select', 'tasks', undefined);
+    let tasksSelect;
 
     const saveButton = document.createElement('button');
     saveButton.type = 'submit';
     saveButton.innerHTML = 'Save';
 
-    const mainSection = document.querySelector('main');
-    mainSection.append(form);
+    const renderWindow = function(){
+        const createTasksSelect = makeInput('select', 'tasks', undefined);
+        tasksSelect = createTasksSelect;
+        const header = document.querySelector('h1');
+        header.innerHTML = 'New Project';
+        const mainSection = document.querySelector('main');
+        mainSection.append(form);
 
-    form.append(nameLabel, nameInput);
-    form.append(tasksLabel, tasksSelect);
-    form.append(saveButton);
+        form.append(nameLabel, nameInput);
+        form.append(tasksLabel, tasksSelect);
+        form.append(saveButton);
+    }
 
     function makeLabel(forVal) {
         const label = document.createElement('label');
@@ -36,11 +41,11 @@ export function setNewProject(){
             const noneOption = makeOption('None');
             input.append(noneOption);
             input.multiple = true;
-            /*const projects = document.querySelectorAll('.project > p');
-            for(let name of projects) {
-                const option = makeOption(`${name.innerHTML}`);
+            const tasks = projects[0].tasks;
+            for(let task of tasks) {
+                const option = makeOption(`${task.title}`);
                 input.append(option);
-            }*/
+            }
         }
         function makeOption(valueVal){
             const option = document.createElement('option');
@@ -51,4 +56,7 @@ export function setNewProject(){
         }
         return input;
     }
-}
+    return {nameInput, tasksSelect, saveButton, renderWindow}
+})();
+
+export {newProject};
