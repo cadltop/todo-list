@@ -26,7 +26,8 @@ const taskControl = (function(){
         projects[0].tasks.push(task);
 
         for(let p in newTask){
-            if(p === 'saveButton') {
+            if(p === 'prioritySelect') {
+                newTask[p].children[0].selected = true;
                 break;
             } else {
                 newTask[p].value = '';
