@@ -57,7 +57,7 @@ const newProject = (function() {
         input.type = "checkbox";
         let idNew = (idVal.match(' ') !== null) ? idVal.replace(' ', '-'): idVal;
         input.id = idNew.toLowerCase();
-        const label = makeLabel(idNew);
+        const label = makeLabel(idVal);
         return {input, label};
     }
     return {nameInput, tasksInputs, saveButton, renderWindow}
