@@ -5,7 +5,7 @@ import { projects } from '../data.js';
 const projectControl = (function() {
     const openWindow = newProject.renderWindow;
     newProject.saveButton.addEventListener('click', (event) => {
-        const name = newProject.nameInput.value;
+        let name = newProject.nameInput.value;
         const tasks = newProject.tasksInputs;
         
         const project = new Project(name);
@@ -20,8 +20,9 @@ const projectControl = (function() {
                 }
             }
         }
-        
-        
+        projects.push(project);
+        newProject.nameInput.value = '';
+        for(let checkBox of tasks) {checkBox.checked = false}
         event.preventDefault();
     })
     

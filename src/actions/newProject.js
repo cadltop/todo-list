@@ -17,7 +17,7 @@ const newProject = (function() {
 
     const renderWindow = function() {
         const tasks = projects[0].tasks;
-        while(tasksContainer.lastChild.htmlFor !== 'none'){
+        while(tasksContainer.lastChild){
             tasksContainer.removeChild(tasksContainer.lastChild);
         }
         for(let task of tasks) {
@@ -50,10 +50,6 @@ const newProject = (function() {
         const input = document.createElement(`${element}`);
         input.id = idVal;
         if(typeVal) input.type = typeVal;
-        if(idVal === 'tasks') {
-            const noneCheckBox = makeCheckBox('None');
-            input.append(noneCheckBox.input, noneCheckBox.label);
-        }
         return input;
     }
     function makeCheckBox(idVal){
