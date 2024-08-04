@@ -25,9 +25,7 @@ clickable[1].addEventListener('click', () => {
 
 function emptyMain() {
     const mainSection = document.querySelector('main');
-    if(mainSection.lastChild){
-        if(mainSection.lastChild !== document.querySelector('h1')){
-            mainSection.removeChild(mainSection.lastChild);
-        }
+    while(mainSection.lastChild !== document.querySelector('h1')){
+        mainSection.removeChild(mainSection.lastChild);
     }
 }
