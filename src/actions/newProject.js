@@ -8,15 +8,27 @@ const newProject = (function() {
     const nameInput = makeInput('input', 'name', 'text');
 
     const tasksLabel = makeLabel('Tasks');
-    let tasksContainer;
+    const tasksContainer = makeInput('div', 'tasks', undefined);
+    let tasksInputs = [];
 
     const saveButton = document.createElement('button');
     saveButton.type = 'submit';
     saveButton.innerHTML = 'Save';
 
-    const renderWindow = function(){
-        const createTasksContainer = makeInput('div', 'tasks', undefined);
-        tasksContainer = createTasksContainer;
+    const renderWindow = function() {
+        const tasks = projects[0].tasks;
+        while(tasksContainer.lastChild.htmlFor !== 'none'){
+            tasksContainer.removeChild(tasksContainer.lastChild);
+        }
+        for(let task of tasks) {
+            const checkBox = makeCheckBox(`${task.title}`);
+            tasksContainer.append(checkBox.input, checkBox.label);
+        }
+        for(let child of tasksContainer.children){
+            if(child.tagName.toLowerCase() === 'input') {
+                tasksInputs.push(child);
+            }
+        }
 
         const header = document.querySelector('h1');
         header.innerHTML = 'New Project';
@@ -40,25 +52,19 @@ const newProject = (function() {
         if(typeVal) input.type = typeVal;
         if(idVal === 'tasks') {
             const noneCheckBox = makeCheckBox('None');
-            input.append(noneCheckBox.checkBoxInput, noneCheckBox.checkBoxLabel);
-            const tasks = projects[0].tasks;
-            for(let task of tasks) {
-                const checkBox = makeCheckBox(`${task.title}`);
-                input.append(checkBox.checkBoxInput, checkBox.checkBoxLabel);
-            }
-        }
-        function makeCheckBox(idVal){
-            const checkBoxInput = document.createElement('input');
-            checkBoxInput.type = "checkbox";
-            let idNew = (idVal.match(' ') !== null) ? idVal.replace(' ', '-'): idVal;
-            checkBoxInput.id = idNew.toLowerCase();
-            const checkBoxLabel = makeLabel(idVal);
-
-            return {checkBoxInput, checkBoxLabel};
+            input.append(noneCheckBox.input, noneCheckBox.label);
         }
         return input;
     }
-    return {nameInput, tasksContainer, saveButton, renderWindow}
+    function makeCheckBox(idVal){
+        const input = document.createElement('input');
+        input.type = "checkbox";
+        let idNew = (idVal.match(' ') !== null) ? idVal.replace(' ', '-'): idVal;
+        input.id = idNew.toLowerCase();
+        const label = makeLabel(idNew);
+        return {input, label};
+    }
+    return {nameInput, tasksInputs, saveButton, renderWindow}
 })();
 
 export {newProject};
