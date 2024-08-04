@@ -11,7 +11,7 @@ const newTask = (function() {
     const descriptionTextarea = makeInput('textarea', 'description', undefined);
 
     const dueDateLabel = makeLabel('due-date');
-    dueDateLabel.innerHTML = 'Due Date:';
+    dueDateLabel.innerHTML = 'Due Date';
     const dueDateInput = makeInput('input', 'due-date', 'date');
 
     const priorityLabel = makeLabel('Priority');
@@ -56,7 +56,7 @@ const newTask = (function() {
     function makeLabel(forVal) {
         const label = document.createElement('label');
         label.htmlFor = forVal.toLowerCase();
-        label.innerHTML = `${forVal}:`
+        label.innerHTML = `${forVal}`
         return label;
     }
     function makeInput(element, idVal, typeVal){
