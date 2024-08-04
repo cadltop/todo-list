@@ -50,7 +50,7 @@ const newTask = (function() {
         form.append(descriptionLabel, descriptionTextarea);
         form.append(dueDateLabel, dueDateInput);
         form.append(priorityLabel, prioritySelect);
-        form.append(projectLabel, projectsContainer);
+        if(projects.length > 1) {form.append(projectLabel, projectsContainer)}
         form.append(saveButton);
     }
     function makeLabel(forVal) {
