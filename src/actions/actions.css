@@ -7,7 +7,7 @@ form {
 label, input[type="date"], select, button {
     width: fit-content;
 }
-input, select, button, textarea {
+input, select, button, textarea, label ~ div {
     margin-bottom: 30px;
     border-radius: 7px;
     border: 1px #c5c5c5 solid;
@@ -37,6 +37,23 @@ button {
     border: none;
     font-weight: bold;
 }
-#tasks {
-    
+label ~ div {
+    display: grid;
+    grid-template: repeat(auto-fill, 1fr) / repeat(2, 1fr);
+    width: fit-content;
+    height: fit-content;
+    column-gap: 20px;
+    row-gap: 25px;
+    padding: 10px;
+}
+
+label ~ div > * {
+    margin: 0;
+}
+label ~ div > input {
+    grid-column: 1 / 2;
+}
+label ~ div > label {
+    grid-column: 2 / 3;
+    font-weight: normal;
 }
