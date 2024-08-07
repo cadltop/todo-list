@@ -1,3 +1,4 @@
+import './projectView.css';
 import {projects} from '../data.js';
 const projectView = (function(){
     const list = document.createElement('ul');
@@ -36,7 +37,6 @@ const projectView = (function(){
         const header = document.querySelector('h1');
         header.innerHTML = 'All Tasks';
         const mainSection = document.querySelector('main');
-        mainSection.append(list);
 
         if(itemsAmmount > 0) mainSection.append(list);
     }
