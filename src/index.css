@@ -4,6 +4,8 @@
 }
 :root {
     --green: #30be62;
+    --light-green: #dfffea; 
+    --hover-green: #c8f8d9;
 }
 body {
     display: grid;
@@ -18,7 +20,7 @@ aside, main {
     flex-direction: column;
 }
 aside {
-    background-color: #dfffea;
+    background-color: var(--light-green);
     padding: 15px;
     gap: 15px;
 }
@@ -39,6 +41,9 @@ section > div {
 .action, .project {
     margin-left: 20px;
     font-size: 20px;
+}
+.action:hover, .project:hover {
+    background-color: var(--hover-green);
 }
 
 section > div > * {
