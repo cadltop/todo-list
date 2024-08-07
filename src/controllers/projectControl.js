@@ -1,6 +1,7 @@
 import { newProject } from '../actions/newProject.js';
 import { Project } from '../classes/project.js';
 import { projects } from '../data.js';
+import { projectView } from '../objects/projectView.js';
 
 const projectControl = (function() {
     const openWindow = newProject.renderWindow;
@@ -25,7 +26,8 @@ const projectControl = (function() {
         for(let checkBox of tasks) {checkBox.checked = false}
         event.preventDefault();
     })
+    const openProject = projectView.renderWindow;
     
-    return {openWindow};
+    return {openWindow, openProject};
 })();
 export {projectControl};
