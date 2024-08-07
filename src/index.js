@@ -19,6 +19,12 @@ for(let i = 0; i < clickable.length; i++) {
                 projectControl.openWindow();
             });
             break;
+        default:
+            clickable[i].addEventListener('click', () => {
+                emptyMain();
+                projectControl.openProject();
+            });
+            break;
     }
 }
 
