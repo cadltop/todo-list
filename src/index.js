@@ -6,22 +6,21 @@ import { projectControl } from './controllers/projectControl.js';
 
 const clickable = document.querySelectorAll('.action, .project');
 for(let i = 0; i < clickable.length; i++) {
-    clickable[i].addEventListener('mouseover', () => {
-        clickable[i].style = 'background-color: #c8f8d9;';
-    })
-    clickable[i].addEventListener('mouseout', () => {
-        clickable[i].style = 'background-color: ';
-    })
+    switch(i)  {
+        case 0:
+            clickable[i].addEventListener('click', () => {
+                emptyMain();
+                taskControl.openWindow();
+            });
+            break;
+        case 1:
+            clickable[i].addEventListener('click', () => {
+                emptyMain();
+                projectControl.openWindow();
+            });
+            break;
+    }
 }
-
-clickable[0].addEventListener('click', () => {
-    emptyMain();
-    taskControl.openWindow();
-})
-clickable[1].addEventListener('click', () => {
-    emptyMain();
-    projectControl.openWindow();
-})
 
 function emptyMain() {
     const mainSection = document.querySelector('main');
