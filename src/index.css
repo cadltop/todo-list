@@ -45,6 +45,10 @@ section > div {
 .action:hover, .project:hover {
     background-color: var(--hover-green);
 }
+.project {
+    display: grid;
+    grid-template-columns: 30px 1fr repeat(2, 30px);
+}
 
 section > div > * {
     margin: 0;
