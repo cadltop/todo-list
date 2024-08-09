@@ -21,12 +21,14 @@ const taskView = (function() {
     saveButton.type = 'submit';
     saveButton.innerHTML = 'Save';
     
+    let titleInitial = '';
     const renderWindow = function(taskTitle, taskDescription, taskDueDate, taskPriority) {
         const header = document.querySelector('h1');
         header.innerHTML = '';
         const mainSection = document.querySelector('main');
         emptyMain()
         titleInput.value = taskTitle;
+        taskView.titleInitial = taskTitle;
         descriptionTextarea.value = taskDescription;
         dueDateInput.value = taskDueDate;
         const priorityOptions = prioritySelect.children;
@@ -65,6 +67,6 @@ const taskView = (function() {
         return input;
     }
     return {titleInput, descriptionTextarea, dueDateInput, 
-        prioritySelect, saveButton, renderWindow};
+        prioritySelect, saveButton, renderWindow, titleInitial};
 })();
 export {taskView};
