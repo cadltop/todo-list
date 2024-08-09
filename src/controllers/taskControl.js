@@ -1,6 +1,7 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
 import { projects } from '../data.js';
+import { taskView } from '../objects/taskView.js';
 
 const taskControl = (function(){
     const openWindow = newTask.renderWindow;
@@ -35,6 +36,24 @@ const taskControl = (function(){
         }
         for(let checkBox of projectsInputs) {checkBox.checked = false}
         
+        event.preventDefault();
+    })
+    taskView.saveButton.addEventListener('click', (event) => {
+        const title = taskView.titleInput.value;
+        const description = taskView.descriptionTextarea.value;
+        const dueDate = taskView.dueDateInput.value;
+        const priority = taskView.prioritySelect.value;
+        
+        for(let project of projects){
+            for(let task of project.tasks) {
+                if(task.title === taskView.titleInitial){
+                    task.title = title;
+                    task.description = description;
+                    task.dueDate = dueDate;
+                    task.priority = priority;
+                }
+            }
+        }
         event.preventDefault();
     })
     return {openWindow};
