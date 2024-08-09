@@ -3,11 +3,18 @@ import {projects} from '../data.js';
 const projectView = (function(){
     const list = document.createElement('ul');
 
-    const renderWindow = function() {
+    const renderWindow = function(projectName) {
+        const project = (function(){
+            let project;
+            projects.forEach((value) => {
+                if(value.name === projectName) project = value;
+            });
+            return project;
+        })();
         while(list.lastChild){
             list.removeChild(list.lastChild);
         }
-        const itemsAmmount = projects[0].tasks.length;
+        const itemsAmmount = project.tasks.length;
         for(let i = 0; i < itemsAmmount; i++) {
             const listItem = document.createElement('li');
 
@@ -17,10 +24,10 @@ const projectView = (function(){
             const textDiv = makeDiv('text');
 
             const titleDiv = makeDiv('title');
-            const titleP = makeP(projects[0].tasks[i].title, undefined);
+            const titleP = makeP(project.tasks[i].title, undefined);
             const titleImg = makeImg('../res/icons/text-box.svg', 'tasks icon');
 
-            const dueDateP = makeP(projects[0].tasks[i].dueDate, 'due-date');
+            const dueDateP = makeP(project.tasks[i].dueDate, 'due-date');
 
             const optionsDiv = makeDiv('options');
             const editImg = makeImg('../res/icons/pencil-box.svg', 'edit icon');
@@ -35,7 +42,7 @@ const projectView = (function(){
             list.append(listItem);
         }
         const header = document.querySelector('h1');
-        header.innerHTML = 'All Tasks';
+        header.innerHTML = projectName;
         const mainSection = document.querySelector('main');
 
         if(itemsAmmount > 0) mainSection.append(list);
