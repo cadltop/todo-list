@@ -17,6 +17,17 @@ const projectView = (function(){
         const itemsAmmount = project.tasks.length;
         for(let i = 0; i < itemsAmmount; i++) {
             const listItem = document.createElement('li');
+            switch(project.tasks[i].priority) {
+                case 'low':
+                    listItem.style.backgroundColor = '#baffac';
+                    break;
+                case 'medium':
+                    listItem.style.backgroundColor = '#fffeac';
+                    break;
+                case 'high':
+                    listItem.style.backgroundColor = '#ffacac';
+                    break;
+            }
 
             const checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
