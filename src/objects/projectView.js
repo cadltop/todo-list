@@ -46,12 +46,20 @@ const projectView = (function(){
             const editImg = makeImg('../res/icons/pencil-box.svg', 'edit icon');
             const deleteImg = makeImg('../res/icons/file-excel-box.svg', 'delete icon');
 
-            listItem.addEventListener('click', () => {
-                taskView.renderWindow(project.tasks[i].title, project.tasks[i].description, project.tasks[i].dueDate, project.tasks[i].priority);
+            listItem.addEventListener('click', () => viewInfo);
+            editImg.addEventListener('click', () => viewInfo);
+            deleteImg.addEventListener('click', () => {
+                delete project.tasks[i];
+                const newtasks = project.tasks.filter((value) => {
+                    return value !== undefined;
+                })
+                project.tasks = newtasks;
+                list.removeChild(listItem);
             })
-            editImg.addEventListener('click', () => {
+            function viewInfo(){
                 taskView.renderWindow(project.tasks[i].title, project.tasks[i].description, project.tasks[i].dueDate, project.tasks[i].priority);
-            })
+            }
+
             listItem.append(checkBox);
             titleDiv.append(titleP, titleImg);
             textDiv.append(titleDiv, dueDateP);
