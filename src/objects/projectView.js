@@ -46,8 +46,8 @@ const projectView = (function(){
             const editImg = makeImg('../res/icons/pencil-box.svg', 'edit icon');
             const deleteImg = makeImg('../res/icons/file-excel-box.svg', 'delete icon');
 
-            listItem.addEventListener('click', () => viewInfo);
-            editImg.addEventListener('click', () => viewInfo);
+            listItem.addEventListener('click', () => viewInfo());
+            editImg.addEventListener('click', () => viewInfo());
             deleteImg.addEventListener('click', () => {
                 if(projectName === 'All Tasks'){
                     for(let p = 1; p < projects.length; p++){
