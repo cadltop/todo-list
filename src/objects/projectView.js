@@ -49,6 +49,19 @@ const projectView = (function(){
             listItem.addEventListener('click', () => viewInfo);
             editImg.addEventListener('click', () => viewInfo);
             deleteImg.addEventListener('click', () => {
+                if(projectName === 'All Tasks'){
+                    for(let p = 1; p < projects.length; p++){
+                        for(let t = 0; t < projects[p].tasks.length; t++) {
+                            if(projects[p].tasks[t].title === project.tasks[i].title){
+                                delete projects[p].tasks[t];
+                                const newtasks = projects[p].tasks.filter((value) => {
+                                    return value !== undefined;
+                                })
+                                projects[p].tasks = newtasks;                
+                            }
+                        }
+                    }
+                }
                 delete project.tasks[i];
                 const newtasks = project.tasks.filter((value) => {
                     return value !== undefined;
