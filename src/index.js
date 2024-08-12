@@ -20,21 +20,6 @@ allTasks.addEventListener('click', () => {
     emptyMain();
     projectControl.openProject('All Tasks');
 })
-allTasks.addEventListener('mouseenter', () => {
-    const editIcon = document.createElement('img');
-    editIcon.src = '../res/icons/pencil-box.svg';
-    editIcon.alt = 'edit icon';
-    const deleteIcon = document.createElement('img');
-    deleteIcon.src = '../res/icons/file-excel-box.svg';
-    deleteIcon.alt = 'delete icon';
-    allTasks.append(editIcon, deleteIcon);
-})
-allTasks.addEventListener('mouseleave', () => {
-    while(allTasks.lastElementChild.tagName.toLowerCase() !== 'p'){
-        allTasks.lastElementChild.remove();
-    }
-})
-
 function emptyMain() {
     const mainSection = document.querySelector('main');
     while(mainSection.lastChild !== document.querySelector('h1')){
