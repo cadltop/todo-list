@@ -3,10 +3,13 @@ import { Project } from '../classes/project.js';
 import { projects } from '../data.js';
 import { projectView } from '../objects/projectView.js';
 import { emptyMain } from '../index.js';
+import { projectEdit } from '../objects/projectEdit.js';
 
 const projectControl = (function() {
     const openWindow = newProject.renderWindow;
     const openProject = projectView.renderWindow;
+    const editProject = projectEdit.renderWindow;
+
     newProject.saveButton.addEventListener('click', (event) => {
         let name = newProject.nameInput.value;
         const tasks = newProject.tasksInputs;
@@ -39,13 +42,18 @@ const projectControl = (function() {
             emptyMain();
             projectControl.openProject(project.name);
         })
+        const editIcon = document.createElement('img');
+        editIcon.src = '../res/icons/pencil-box.svg';
+        editIcon.alt = 'edit icon';
+        editIcon.addEventListener('click', (event) => {
+            projectControl.editProject(project.name);
+            event.stopPropagation();
+        })
+        const deleteIcon = document.createElement('img');
+        deleteIcon.src = '../res/icons/file-excel-box.svg';
+        deleteIcon.alt = 'delete icon';
+
         projectDiv.addEventListener('mouseenter', () => {
-            const editIcon = document.createElement('img');
-            editIcon.src = '../res/icons/pencil-box.svg';
-            editIcon.alt = 'edit icon';
-            const deleteIcon = document.createElement('img');
-            deleteIcon.src = '../res/icons/file-excel-box.svg';
-            deleteIcon.alt = 'delete icon';
             projectDiv.append(editIcon, deleteIcon);
         })
         projectDiv.addEventListener('mouseleave', () => {
@@ -63,7 +71,27 @@ const projectControl = (function() {
         for(let checkBox of tasks) {checkBox.checked = false}
         event.preventDefault();
     })
+    projectEdit.saveButton.addEventListener('click', (event) => {
+        const name = projectEdit.nameInput.value;
+        const projectName = (function() {
+            const projectsNames = document.querySelectorAll('section#projects > .project > p');
+            
+            for(let pn of projectsNames) {
+                if(pn.innerHTML === projectEdit.nameInitial){
+                    return pn;
+                }
+            }
+        })();
+        
+        for(let project of projects){
+            if(project.name === projectEdit.nameInitial){
+                project.name = name;
+                projectName.innerHTML = name;
+            }
+        }
+        event.preventDefault();
+    })
     
-    return {openWindow, openProject};
+    return {openWindow, openProject, editProject};
 })();
 export {projectControl};
