@@ -25,5 +25,6 @@ function emptyMain() {
     while(mainSection.lastChild !== document.querySelector('h1')){
         mainSection.removeChild(mainSection.lastChild);
     }
+    mainSection.lastChild.innerHTML = '';
 }
 export {emptyMain};
