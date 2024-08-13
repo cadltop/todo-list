@@ -12,7 +12,7 @@ const taskView = (function() {
 
     const dueDateLabel = makeLabel('due-date');
     dueDateLabel.innerHTML = 'Due Date';
-    const dueDateInput = makeInput('input', 'due-date', 'date');
+    const dueDateInput = makeInput('input', 'due-date', 'datetime-local');
 
     const priorityLabel = makeLabel('Priority');
     const prioritySelect = makeInput('select', 'priority', undefined);

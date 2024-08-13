@@ -23,6 +23,9 @@ label {
 input[type="text"] {
     max-width: 40%;
 }
+input[type="datetime-local"] {
+    max-width: 20%;
+}
 textarea {
     max-width: 50%;
     min-height: fit-content;
