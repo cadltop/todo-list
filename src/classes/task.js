@@ -5,4 +5,5 @@ export class Task {
         this.dueDate = dueDate,
         this.priority = priority
     }
+    checked = false;
 }
