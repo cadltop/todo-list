@@ -1,6 +1,6 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
-import { projects } from '../data.js';
+import { data } from '../data.js';
 import { taskView } from '../objects/taskView.js';
 
 const taskControl = (function(){
@@ -15,7 +15,7 @@ const taskControl = (function(){
         const task = new Task(title, description, dueDate, priority);
         for(let checkBox of projectsInputs) {
             if(checkBox.checked) {
-                for(let project of projects){
+                for(let project of data.projects){
                     let nameToId = (project.name.match(' ') !== null) ? project.name.replace(' ', '-'): project.name;
                     nameToId.toLowerCase();
                     if(nameToId === checkBox.id){
@@ -24,7 +24,7 @@ const taskControl = (function(){
                 }
             }
         }
-        projects[0].tasks.push(task);
+        data.projects[0].tasks.push(task);
 
         for(let p in newTask){
             if(p === 'prioritySelect') {
@@ -44,7 +44,7 @@ const taskControl = (function(){
         const dueDate = taskView.dueDateInput.value;
         const priority = taskView.prioritySelect.value;
         
-        for(let project of projects){
+        for(let project of data.projects){
             for(let task of project.tasks) {
                 if(task.title === taskView.titleInitial){
                     task.title = title;

@@ -1,5 +1,5 @@
 import './actions.css';
-import { projects } from '../data.js';
+import { data } from '../data.js';
 
 const newProject = (function() {
     const form = document.createElement('form');
@@ -16,7 +16,7 @@ const newProject = (function() {
     saveButton.innerHTML = 'Save';
 
     const renderWindow = function() {
-        const tasks = projects[0].tasks;
+        const tasks = data.projects[0].tasks;
         while(tasksContainer.lastChild){
             tasksContainer.removeChild(tasksContainer.lastChild);
         }
@@ -36,7 +36,7 @@ const newProject = (function() {
         mainSection.append(form);
 
         form.append(nameLabel, nameInput);
-        if(projects[0].tasks.length > 0) {form.append(tasksLabel, tasksContainer)}
+        if(data.projects[0].tasks.length > 0) {form.append(tasksLabel, tasksContainer)}
         form.append(saveButton);
     }
 

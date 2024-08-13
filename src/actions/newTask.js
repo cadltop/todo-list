@@ -1,5 +1,5 @@
 import './actions.css';
-import { projects } from '../data.js';
+import { data } from '../data.js';
 
 const newTask = (function() {
     const form = document.createElement('form');
@@ -29,8 +29,8 @@ const newTask = (function() {
         while(projectsContainer.lastChild){
             projectsContainer.removeChild(projectsContainer.lastChild);
         }
-        for(let project of projects) {
-            if(project !== projects[0]) {
+        for(let project of data.projects) {
+            if(project !== data.projects[0]) {
                 const checkBox = makeCheckBox(`${project.name}`);
                 projectsContainer.append(checkBox.input, checkBox.label);
             }
@@ -50,7 +50,7 @@ const newTask = (function() {
         form.append(descriptionLabel, descriptionTextarea);
         form.append(dueDateLabel, dueDateInput);
         form.append(priorityLabel, prioritySelect);
-        if(projects.length > 1) {form.append(projectLabel, projectsContainer)}
+        if(data.projects.length > 1) {form.append(projectLabel, projectsContainer)}
         form.append(saveButton);
     }
     function makeLabel(forVal) {

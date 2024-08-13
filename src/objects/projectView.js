@@ -1,5 +1,5 @@
 import './projectView.css';
-import {projects} from '../data.js';
+import {data} from '../data.js';
 import { taskView } from './taskView.js';
 
 const projectView = (function(){
@@ -8,7 +8,7 @@ const projectView = (function(){
     const renderWindow = function(projectName) {
         const project = (function(){
             let project;
-            projects.forEach((value) => {
+            data.projects.forEach((value) => {
                 if(value.name === projectName) project = value;
             });
             return project;
@@ -50,14 +50,14 @@ const projectView = (function(){
             editImg.addEventListener('click', () => viewInfo());
             deleteImg.addEventListener('click', () => {
                 if(projectName === 'All Tasks'){
-                    for(let p = 1; p < projects.length; p++){
-                        for(let t = 0; t < projects[p].tasks.length; t++) {
-                            if(projects[p].tasks[t].title === project.tasks[i].title){
-                                delete projects[p].tasks[t];
-                                const newtasks = projects[p].tasks.filter((value) => {
+                    for(let p = 1; p < data.projects.length; p++){
+                        for(let t = 0; t < data.projects[p].tasks.length; t++) {
+                            if(data.projects[p].tasks[t].title === project.tasks[i].title){
+                                delete data.projects[p].tasks[t];
+                                const newtasks = data.projects[p].tasks.filter((value) => {
                                     return value !== undefined;
                                 })
-                                projects[p].tasks = newtasks;                
+                                data.projects[p].tasks = newtasks;                
                             }
                         }
                     }
