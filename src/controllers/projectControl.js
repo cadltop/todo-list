@@ -1,6 +1,6 @@
 import { newProject } from '../actions/newProject.js';
 import { Project } from '../classes/project.js';
-import { projects } from '../data.js';
+import { data } from '../data.js';
 import { projectView } from '../objects/projectView.js';
 import { emptyMain } from '../index.js';
 import { projectEdit } from '../objects/projectEdit.js';
@@ -17,7 +17,7 @@ const projectControl = (function() {
         const project = new Project(name);
         for(let checkBox of tasks) {
             if(checkBox.checked) {
-                for(let task of projects[0].tasks){
+                for(let task of data.projects[0].tasks){
                     let titleToId = (task.title.match(' ') !== null) ? task.title.replace(' ', '-'): task.title;
                     titleToId.toLowerCase();
                     if(titleToId === checkBox.id){
@@ -26,7 +26,7 @@ const projectControl = (function() {
                 }
             }
         }
-        projects.push(project);
+        data.projects.push(project);
 
         const projectDiv = document.createElement('div');
         projectDiv.className = 'project';
@@ -35,13 +35,14 @@ const projectControl = (function() {
         projectIcon.src = '../res/icons/folder.svg';
         projectIcon.alt = 'project icon';
 
-        const projectName = document.createElement('p');
-        projectName.innerHTML = project.name;
+        const projectP = document.createElement('p');
+        projectP.innerHTML = project.name;
 
         projectDiv.addEventListener('click', () => {
             emptyMain();
             projectControl.openProject(project.name);
         })
+
         const editIcon = document.createElement('img');
         editIcon.src = '../res/icons/pencil-box.svg';
         editIcon.alt = 'edit icon';
@@ -52,6 +53,40 @@ const projectControl = (function() {
         const deleteIcon = document.createElement('img');
         deleteIcon.src = '../res/icons/file-excel-box.svg';
         deleteIcon.alt = 'delete icon';
+        deleteIcon.addEventListener('click', (event) => {
+            const projectName = (function() {
+                const projectsNames = document.querySelectorAll('section#projects > .project > p');
+                
+                for(let pn of projectsNames) {
+                    if(pn.innerHTML === projectP.innerHTML){
+                        return pn;
+                    }
+                }
+            })();
+            const projectContainer = (function() {
+                const projectsContainers = document.querySelectorAll('section#projects > .project');
+
+                for(let pc of projectsContainers) {
+                    const projectContainerP = pc.querySelector('p');
+                    if(projectContainerP.innerHTML ===  projectName.innerHTML){
+                        return pc;
+                    }
+                }
+            })();
+            
+            for(let p = 1; p < data.projects.length; p++) {
+                if(data.projects[p].name === projectName.innerHTML){
+                    delete data.projects[p];
+                    data.newProjects = data.projects.filter((value) => {
+                        return value !== undefined;
+                    })
+                    projectContainer.remove();
+                    emptyMain();
+                    break;
+                }
+            }
+            event.stopPropagation();
+        })
 
         projectDiv.addEventListener('mouseenter', () => {
             projectDiv.append(editIcon, deleteIcon);
@@ -64,7 +99,7 @@ const projectControl = (function() {
 
         const projectsSection = document.querySelector('section#projects');
 
-        projectDiv.append(projectIcon, projectName);
+        projectDiv.append(projectIcon, projectP);
         projectsSection.append(projectDiv);
 
         newProject.nameInput.value = '';
@@ -83,7 +118,7 @@ const projectControl = (function() {
             }
         })();
         
-        for(let project of projects){
+        for(let project of data.projects){
             if(project.name === projectEdit.nameInitial){
                 project.name = name;
                 projectName.innerHTML = name;
