@@ -33,6 +33,14 @@ const projectView = (function(){
 
             const checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
+            if(project.tasks[i].checked) checkBox.checked = true;
+            checkBox.addEventListener('click', () => {
+                if(checkBox.checked) {
+                    project.tasks[i].checked = true;
+                } else {
+                    project.tasks[i].checked = false;
+                }
+            })
 
             const textDiv = makeDiv('text');
 
@@ -46,7 +54,6 @@ const projectView = (function(){
             const editImg = makeImg('../res/icons/pencil-box.svg', 'edit icon');
             const deleteImg = makeImg('../res/icons/file-excel-box.svg', 'delete icon');
 
-            listItem.addEventListener('click', () => viewInfo());
             editImg.addEventListener('click', () => viewInfo());
             deleteImg.addEventListener('click', () => {
                 if(projectName === 'All Tasks'){
