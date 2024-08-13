@@ -36,7 +36,7 @@ const newProject = (function() {
         mainSection.append(form);
 
         form.append(nameLabel, nameInput);
-        if(data.projects[0].tasks.length > 0) {form.append(tasksLabel, tasksContainer)}
+        if(data.projects[0].tasks.length) {form.append(tasksLabel, tasksContainer)}
         form.append(saveButton);
     }
 
