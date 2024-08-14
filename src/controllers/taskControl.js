@@ -39,6 +39,18 @@ const taskControl = (function(){
             }
         }
         data.projects[0].tasks.push(task);
+        let tasksDates = data.projects[0].tasks.map(value => {
+            const date = value.dueDate;
+            return date;
+        }).sort(compareAsc);
+        let newTasksList = tasksDates.map(value => {
+            for(let task of data.projects[0].tasks) {
+                if(task.dueDate === value){
+                    return task;
+                }
+            }
+        })
+        data.projects[0].tasks = newTasksList;
 
         for(let p in newTask){
             if(p === 'prioritySelect') {
@@ -65,7 +77,7 @@ const taskControl = (function(){
                     task.description = description;
                     task.dueDate = dueDate;
                     task.priority = priority;
-                    
+
                     let tasksDates = project.tasks.map(value => {
                         const date = value.dueDate;
                         return date;
