@@ -2,6 +2,7 @@ import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
 import { data } from '../data.js';
 import { taskView } from '../objects/taskView.js';
+import { compareAsc } from 'date-fns';
 
 const taskControl = (function(){
     const openWindow = newTask.renderWindow;
@@ -20,6 +21,19 @@ const taskControl = (function(){
                     nameToId.toLowerCase();
                     if(nameToId === checkBox.id){
                         project.tasks.push(task);
+
+                        let tasksDates = project.tasks.map(value => {
+                            const date = value.dueDate;
+                            return date;
+                        }).sort(compareAsc);
+                        let newTasksList = tasksDates.map(value => {
+                            for(let task of project.tasks) {
+                                if(task.dueDate === value){
+                                    return task;
+                                }
+                            }
+                        })
+                        project.tasks = newTasksList;
                     }
                 }
             }
@@ -51,6 +65,19 @@ const taskControl = (function(){
                     task.description = description;
                     task.dueDate = dueDate;
                     task.priority = priority;
+                    
+                    let tasksDates = project.tasks.map(value => {
+                        const date = value.dueDate;
+                        return date;
+                    }).sort(compareAsc);
+                    let newTasksList = tasksDates.map(value => {
+                        for(let task of project.tasks) {
+                            if(task.dueDate === value){
+                                return task;
+                            }
+                        }
+                    })
+                    project.tasks = newTasksList;
                 }
             }
         }

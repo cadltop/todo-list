@@ -4,6 +4,7 @@ import { data } from '../data.js';
 import { projectView } from '../objects/projectView.js';
 import { emptyMain } from '../index.js';
 import { projectEdit } from '../objects/projectEdit.js';
+import { compareAsc } from 'date-fns';
 
 const projectControl = (function() {
     const openWindow = newProject.renderWindow;
@@ -22,6 +23,19 @@ const projectControl = (function() {
                     titleToId.toLowerCase();
                     if(titleToId === checkBox.id){
                         project.tasks.push(task);
+                        
+                        let tasksDates = project.tasks.map(value => {
+                            const date = value.dueDate;
+                            return date;
+                        }).sort(compareAsc);
+                        let newTasksList = tasksDates.map(value => {
+                            for(let task of project.tasks) {
+                                if(task.dueDate === value){
+                                    return task;
+                                }
+                            }
+                        })
+                        project.tasks = newTasksList;
                     }
                 }
             }
