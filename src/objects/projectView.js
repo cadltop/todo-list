@@ -1,6 +1,6 @@
 import './projectView.css';
 import {data} from '../data.js';
-import { taskView } from './taskView.js';
+import { taskEdit } from './taskEdit.js';
 
 const projectView = (function(){
     const list = document.createElement('ul');
@@ -77,7 +77,7 @@ const projectView = (function(){
                 list.removeChild(listItem);
             })
             function viewInfo(){
-                taskView.renderWindow(project.tasks[i].title, project.tasks[i].description, project.tasks[i].dueDate, project.tasks[i].priority);
+                taskEdit.renderWindow(project.tasks[i].title, project.tasks[i].description, project.tasks[i].dueDate, project.tasks[i].priority);
             }
 
             listItem.append(checkBox);

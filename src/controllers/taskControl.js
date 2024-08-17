@@ -1,7 +1,7 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
 import { data } from '../data.js';
-import { taskView } from '../objects/taskView.js';
+import { taskEdit } from '../objects/taskEdit.js';
 import { compareAsc } from 'date-fns';
 
 const taskControl = (function(){
@@ -68,15 +68,15 @@ const taskControl = (function(){
         
         event.preventDefault();
     })
-    taskView.saveButton.addEventListener('click', (event) => {
-        const title = taskView.titleInput.value;
-        const description = taskView.descriptionTextarea.value;
-        const dueDate = taskView.dueDateInput.value;
-        const priority = taskView.prioritySelect.value;
+    taskEdit.saveButton.addEventListener('click', (event) => {
+        const title = taskEdit.titleInput.value;
+        const description = taskEdit.descriptionTextarea.value;
+        const dueDate = taskEdit.dueDateInput.value;
+        const priority = taskEdit.prioritySelect.value;
         
         for(let project of data.projects){
             for(let task of project.tasks) {
-                if(task.title === taskView.titleInitial){
+                if(task.title === taskEdit.titleInitial){
                     task.title = title;
                     task.description = description;
                     task.dueDate = dueDate;
