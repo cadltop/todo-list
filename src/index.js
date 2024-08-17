@@ -8,7 +8,6 @@ const actions = document.querySelectorAll('.action');
 const allTasks = document.querySelector('.project.all');
 
 actions[0].addEventListener('click', () => {
-    emptyMain();
     taskControl.openWindow();
 })
 actions[1].addEventListener('click', () => {
@@ -16,6 +15,7 @@ actions[1].addEventListener('click', () => {
 })
 
 allTasks.addEventListener('click', () => {
+    emptyMain();
     projectControl.openProject('All Tasks');
 })
 function emptyMain() {
