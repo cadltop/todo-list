@@ -6,7 +6,7 @@ export class Form extends mainWindow {
 
     makeLabel(text) {
         const label = document.createElement('label');
-        label.htmlFor = text.toLowerCase();
+        label.htmlFor = this.replaceSpace(text);
         label.innerHTML = text;
         return label;
     }
