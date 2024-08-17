@@ -13,54 +13,58 @@ const taskControl = (function(){
         const priority = newTask.prioritySelect.value;
         const projectsInputs = newTask.projectsInputs;
 
-        const task = new Task(title, description, dueDate, priority);
-        for(let checkBox of projectsInputs) {
-            if(checkBox.checked) {
-                for(let project of data.projects){
-                    let nameToId = (project.name.match(' ') !== null) ? project.name.replace(' ', '-'): project.name;
-                    nameToId.toLowerCase();
-                    if(nameToId === checkBox.id){
-                        project.tasks.push(task);
+        if(title.length !== 0 && dueDate.length !== 0) {
+            const task = new Task(title, description, dueDate, priority);
+            for(let checkBox of projectsInputs) {
+                if(checkBox.checked) {
+                    for(let project of data.projects){
+                        let nameToId = (project.name.match(' ') !== null) ? project.name.replace(' ', '-'): project.name;
+                        nameToId.toLowerCase();
+                        if(nameToId === checkBox.id){
+                            project.tasks.push(task);
 
-                        let tasksDates = project.tasks.map(value => {
-                            const date = value.dueDate;
-                            return date;
-                        }).sort(compareAsc);
-                        let newTasksList = tasksDates.map(value => {
-                            for(let task of project.tasks) {
-                                if(task.dueDate === value){
-                                    return task;
+                            let tasksDates = project.tasks.map(value => {
+                                const date = value.dueDate;
+                                return date;
+                            }).sort(compareAsc);
+                            let newTasksList = tasksDates.map(value => {
+                                for(let task of project.tasks) {
+                                    if(task.dueDate === value){
+                                        return task;
+                                    }
                                 }
-                            }
-                        })
-                        project.tasks = newTasksList;
+                            })
+                            project.tasks = newTasksList;
+                        }
                     }
                 }
             }
-        }
-        data.projects[0].tasks.push(task);
-        let tasksDates = data.projects[0].tasks.map(value => {
-            const date = value.dueDate;
-            return date;
-        }).sort(compareAsc);
-        let newTasksList = tasksDates.map(value => {
-            for(let task of data.projects[0].tasks) {
-                if(task.dueDate === value){
-                    return task;
+            data.projects[0].tasks.push(task);
+            let tasksDates = data.projects[0].tasks.map(value => {
+                const date = value.dueDate;
+                return date;
+            }).sort(compareAsc);
+            let newTasksList = tasksDates.map(value => {
+                for(let task of data.projects[0].tasks) {
+                    if(task.dueDate === value){
+                        return task;
+                    }
+                }
+            })
+            data.projects[0].tasks = newTasksList;
+
+            for(let p in newTask){
+                if(p === 'prioritySelect') {
+                    newTask[p].children[0].selected = true;
+                    break;
+                } else {
+                    newTask[p].value = '';
                 }
             }
-        })
-        data.projects[0].tasks = newTasksList;
-
-        for(let p in newTask){
-            if(p === 'prioritySelect') {
-                newTask[p].children[0].selected = true;
-                break;
-            } else {
-                newTask[p].value = '';
-            }
+            for(let checkBox of projectsInputs) {checkBox.checked = false}
+        } else {
+            alert('Give your task a title and/or a due date.');
         }
-        for(let checkBox of projectsInputs) {checkBox.checked = false}
         
         event.preventDefault();
     })

@@ -13,111 +13,115 @@ const projectControl = (function() {
 
     newProject.saveButton.addEventListener('click', (event) => {
         let name = newProject.nameInput.value;
-        const tasks = newProject.tasksInputs;
+        if(name.length !== 0) {
+            const tasks = newProject.tasksInputs;
         
-        const project = new Project(name);
-        for(let checkBox of tasks) {
-            if(checkBox.checked) {
-                for(let task of data.projects[0].tasks){
-                    let titleToId = (task.title.match(' ') !== null) ? task.title.replace(' ', '-'): task.title;
-                    titleToId.toLowerCase();
-                    if(titleToId === checkBox.id){
-                        project.tasks.push(task);
-                        
-                        let tasksDates = project.tasks.map(value => {
-                            const date = value.dueDate;
-                            return date;
-                        }).sort(compareAsc);
-                        let newTasksList = tasksDates.map(value => {
-                            for(let task of project.tasks) {
-                                if(task.dueDate === value){
-                                    return task;
+            const project = new Project(name);
+            for(let checkBox of tasks) {
+                if(checkBox.checked) {
+                    for(let task of data.projects[0].tasks){
+                        let titleToId = (task.title.match(' ') !== null) ? task.title.replace(' ', '-'): task.title;
+                        titleToId.toLowerCase();
+                        if(titleToId === checkBox.id){
+                            project.tasks.push(task);
+                            
+                            let tasksDates = project.tasks.map(value => {
+                                const date = value.dueDate;
+                                return date;
+                            }).sort(compareAsc);
+                            let newTasksList = tasksDates.map(value => {
+                                for(let task of project.tasks) {
+                                    if(task.dueDate === value){
+                                        return task;
+                                    }
                                 }
-                            }
-                        })
-                        project.tasks = newTasksList;
+                            })
+                            project.tasks = newTasksList;
+                        }
                     }
                 }
             }
-        }
-        data.projects.push(project);
+            data.projects.push(project);
 
-        const projectDiv = document.createElement('div');
-        projectDiv.className = 'project';
+            const projectDiv = document.createElement('div');
+            projectDiv.className = 'project';
 
-        const projectIcon = document.createElement('img');
-        projectIcon.src = '../res/icons/folder.svg';
-        projectIcon.alt = 'project icon';
+            const projectIcon = document.createElement('img');
+            projectIcon.src = '../res/icons/folder.svg';
+            projectIcon.alt = 'project icon';
 
-        const projectP = document.createElement('p');
-        projectP.innerHTML = project.name;
+            const projectP = document.createElement('p');
+            projectP.innerHTML = project.name;
 
-        projectDiv.addEventListener('click', () => {
-            emptyMain();
-            projectControl.openProject(project.name);
-        })
+            projectDiv.addEventListener('click', () => {
+                emptyMain();
+                projectControl.openProject(project.name);
+            })
 
-        const editIcon = document.createElement('img');
-        editIcon.src = '../res/icons/pencil-box.svg';
-        editIcon.alt = 'edit icon';
-        editIcon.addEventListener('click', (event) => {
-            projectControl.editProject(project.name);
-            event.stopPropagation();
-        })
-        const deleteIcon = document.createElement('img');
-        deleteIcon.src = '../res/icons/file-excel-box.svg';
-        deleteIcon.alt = 'delete icon';
-        deleteIcon.addEventListener('click', (event) => {
-            const projectName = (function() {
-                const projectsNames = document.querySelectorAll('section#projects > .project > p');
+            const editIcon = document.createElement('img');
+            editIcon.src = '../res/icons/pencil-box.svg';
+            editIcon.alt = 'edit icon';
+            editIcon.addEventListener('click', (event) => {
+                projectControl.editProject(project.name);
+                event.stopPropagation();
+            })
+            const deleteIcon = document.createElement('img');
+            deleteIcon.src = '../res/icons/file-excel-box.svg';
+            deleteIcon.alt = 'delete icon';
+            deleteIcon.addEventListener('click', (event) => {
+                const projectName = (function() {
+                    const projectsNames = document.querySelectorAll('section#projects > .project > p');
+                    
+                    for(let pn of projectsNames) {
+                        if(pn.innerHTML === projectP.innerHTML){
+                            return pn;
+                        }
+                    }
+                })();
+                const projectContainer = (function() {
+                    const projectsContainers = document.querySelectorAll('section#projects > .project');
+
+                    for(let pc of projectsContainers) {
+                        const projectContainerP = pc.querySelector('p');
+                        if(projectContainerP.innerHTML ===  projectName.innerHTML){
+                            return pc;
+                        }
+                    }
+                })();
                 
-                for(let pn of projectsNames) {
-                    if(pn.innerHTML === projectP.innerHTML){
-                        return pn;
+                for(let p = 1; p < data.projects.length; p++) {
+                    if(data.projects[p].name === projectName.innerHTML){
+                        delete data.projects[p];
+                        data.newProjects = data.projects.filter((value) => {
+                            return value !== undefined;
+                        })
+                        projectContainer.remove();
+                        emptyMain();
+                        break;
                     }
                 }
-            })();
-            const projectContainer = (function() {
-                const projectsContainers = document.querySelectorAll('section#projects > .project');
+                event.stopPropagation();
+            })
 
-                for(let pc of projectsContainers) {
-                    const projectContainerP = pc.querySelector('p');
-                    if(projectContainerP.innerHTML ===  projectName.innerHTML){
-                        return pc;
-                    }
+            projectDiv.addEventListener('mouseenter', () => {
+                projectDiv.append(editIcon, deleteIcon);
+            })
+            projectDiv.addEventListener('mouseleave', () => {
+                while(projectDiv.lastElementChild.tagName.toLowerCase() !== 'p'){
+                    projectDiv.lastElementChild.remove();
                 }
-            })();
-            
-            for(let p = 1; p < data.projects.length; p++) {
-                if(data.projects[p].name === projectName.innerHTML){
-                    delete data.projects[p];
-                    data.newProjects = data.projects.filter((value) => {
-                        return value !== undefined;
-                    })
-                    projectContainer.remove();
-                    emptyMain();
-                    break;
-                }
-            }
-            event.stopPropagation();
-        })
+            })
 
-        projectDiv.addEventListener('mouseenter', () => {
-            projectDiv.append(editIcon, deleteIcon);
-        })
-        projectDiv.addEventListener('mouseleave', () => {
-            while(projectDiv.lastElementChild.tagName.toLowerCase() !== 'p'){
-                projectDiv.lastElementChild.remove();
-            }
-        })
+            const projectsSection = document.querySelector('section#projects');
 
-        const projectsSection = document.querySelector('section#projects');
+            projectDiv.append(projectIcon, projectP);
+            projectsSection.append(projectDiv);
 
-        projectDiv.append(projectIcon, projectP);
-        projectsSection.append(projectDiv);
-
-        newProject.nameInput.value = '';
-        for(let checkBox of tasks) {checkBox.checked = false}
+            newProject.nameInput.value = '';
+            for(let checkBox of tasks) {checkBox.checked = false}
+        } else {
+            alert('Give your project a name.');
+        }
         event.preventDefault();
     })
     projectEdit.saveButton.addEventListener('click', (event) => {
