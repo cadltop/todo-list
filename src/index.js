@@ -12,12 +12,10 @@ actions[0].addEventListener('click', () => {
     taskControl.openWindow();
 })
 actions[1].addEventListener('click', () => {
-    emptyMain();
     projectControl.openWindow();
 })
 
 allTasks.addEventListener('click', () => {
-    emptyMain();
     projectControl.openProject('All Tasks');
 })
 function emptyMain() {
