@@ -9,9 +9,9 @@ export class mainWindow extends Document {
         this.#header.innerHTML = headerText;
         this.#main.append(this.element);
     }
-    setId(id) {
-        const newId =(id.match(' ') !== null) 
-        ? id.replace(' ', '-'): id;
-        return newId;
+    replaceSpace(string) {
+        const newString =(string.match(' ') !== null) 
+        ? string.replace(' ', '-'): string;
+        return newString;
     }
 }

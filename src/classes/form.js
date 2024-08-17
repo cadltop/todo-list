@@ -12,13 +12,13 @@ export class Form extends mainWindow {
     }
     makeInput(id, type){
         const input = document.createElement('input');
-        input.id = this.setId(id);
+        input.id = this.replaceSpace(id);
         input.type = type;
         return input;
     }
     makeDiv(id){
         const div = document.createElement('div');
-        div.id = this.setId(id);
+        div.id = this.replaceSpace(id);
         return div;
     }
     emptyDiv(div) {
