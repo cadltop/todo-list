@@ -9,7 +9,7 @@ export const newProject = (function() {
     const nameInput = form.makeInput('name', 'text');
 
     const tasksLabel = form.makeLabel('Tasks');
-    const tasksDiv = form.makeDiv('tasks');
+    const tasksDiv = form.makeDiv('tasks', undefined);
     let tasksInputs = [];
 
     const saveButton = form.makeButton('Save', 'submit');
@@ -17,7 +17,7 @@ export const newProject = (function() {
     const renderWindow = function() {
         form.clearMainAndHeader();
         const tasks = dataHandler.getAllTasks();
-        form.emptyDiv(tasksDiv);
+        form.emptyElement(tasksDiv);
         tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
 
         form.element.append(nameLabel, nameInput);

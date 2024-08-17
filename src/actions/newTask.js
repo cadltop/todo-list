@@ -23,7 +23,7 @@ export const newTask = (function() {
     prioritySelect.append(lowOption, mediumOption, highOption);
 
     const projectsLabel = form.makeLabel('Projects');
-    const projectsDiv = form.makeDiv('projects');
+    const projectsDiv = form.makeDiv('projects', undefined);
     let projectsInputs = [];
 
     const saveButton = form.makeButton('Save', 'submit');
@@ -31,7 +31,7 @@ export const newTask = (function() {
     const renderWindow = function() {
         form.clearMainAndHeader();
         const projects = dataHandler.getAllProjects();
-        form.emptyDiv(projectsDiv);
+        form.emptyElement(projectsDiv);
         projectsInputs = form.makeCheckBoxList(projectsDiv, projects);
 
         form.element.append(titleLabel, titleInput);
