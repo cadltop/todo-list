@@ -1,22 +1,22 @@
 import { mainWindow } from "./mainWindow.js";
 export class Form extends mainWindow {
-    constructor(){
+    constructor() {
         super('form');
     }
 
-    makeLabel(text){
+    makeLabel(text) {
         const label = document.createElement('label');
         label.htmlFor = text.toLowerCase();
         label.innerHTML = text;
         return label;
     }
-    makeInput(id, type){
+    makeInput(id, type) {
         const input = document.createElement('input');
         input.id = this.replaceSpace(id);
         input.type = type;
         return input;
     }
-    makeDiv(id){
+    makeDiv(id) {
         const div = document.createElement('div');
         div.id = this.replaceSpace(id);
         return div;
@@ -26,18 +26,18 @@ export class Form extends mainWindow {
             div.lastChild.remove();
         }
     }
-    makeButton(text, type){
+    makeButton(text, type) {
         const button = document.createElement('button');
         button.innerHTML = text;
         button.type = type;
         return button;
     }
-    makeCheckBox(id){
+    makeCheckBox(id) {
         const input = this.makeInput(id, 'checkbox');
         const label = this.makeLabel(id);
         return {input, label};
     }
-    makeCheckBoxList(listDiv, listItems){
+    makeCheckBoxList(listDiv, listItems) {
         let inputList = [];
         for(let item of listItems) {
             const checkBox = this.makeCheckBox(`${item.title}`);

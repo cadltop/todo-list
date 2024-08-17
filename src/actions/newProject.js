@@ -2,8 +2,8 @@ import './actions.css';
 import { Form } from '../classes/form.js';
 import { dataHandler } from '../dataHandler';
 
-export const newProject = (function(){
-    const form = new Form('form');
+export const newProject = (function() {
+    const form = new Form();
     const nameLabel = form.makeLabel('Name');
     const nameInput = form.makeInput('name', 'text');
 
@@ -13,7 +13,7 @@ export const newProject = (function(){
 
     const saveButton = form.makeButton('Save', 'submit');
 
-    const renderWindow = function(){
+    const renderWindow = function() {
         const tasks = dataHandler.getAllTasks();
         form.emptyDiv(tasksDiv);
         tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
