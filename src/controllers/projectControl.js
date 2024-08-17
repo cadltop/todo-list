@@ -126,21 +126,26 @@ const projectControl = (function() {
     })
     projectEdit.saveButton.addEventListener('click', (event) => {
         const name = projectEdit.nameInput.value;
-        const projectName = (function() {
-            const projectsNames = document.querySelectorAll('section#projects > .project > p');
+
+        if(name.length !== 0) {
+            const projectName = (function() {
+                const projectsNames = document.querySelectorAll('section#projects > .project > p');
+                
+                for(let pn of projectsNames) {
+                    if(pn.innerHTML === projectEdit.nameInitial){
+                        return pn;
+                    }
+                }
+            })();
             
-            for(let pn of projectsNames) {
-                if(pn.innerHTML === projectEdit.nameInitial){
-                    return pn;
+            for(let project of data.projects){
+                if(project.name === projectEdit.nameInitial){
+                    project.name = name;
+                    projectName.innerHTML = name;
                 }
             }
-        })();
-        
-        for(let project of data.projects){
-            if(project.name === projectEdit.nameInitial){
-                project.name = name;
-                projectName.innerHTML = name;
-            }
+        } else {
+            alert('Give your project a name.');
         }
         event.preventDefault();
     })

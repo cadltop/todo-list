@@ -65,7 +65,6 @@ const taskControl = (function(){
         } else {
             alert('Give your task a title and/or a due date.');
         }
-        
         event.preventDefault();
     })
     taskEdit.saveButton.addEventListener('click', (event) => {
@@ -74,31 +73,36 @@ const taskControl = (function(){
         const dueDate = taskEdit.dueDateInput.value;
         const priority = taskEdit.prioritySelect.value;
         
-        for(let project of data.projects){
-            for(let task of project.tasks) {
-                if(task.title === taskEdit.titleInitial){
-                    task.title = title;
-                    task.description = description;
-                    task.dueDate = dueDate;
-                    task.priority = priority;
-
-                    let tasksDates = project.tasks.map(value => {
-                        const date = value.dueDate;
-                        return date;
-                    }).sort(compareAsc);
-                    let newTasksList = tasksDates.map(value => {
-                        for(let task of project.tasks) {
-                            if(task.dueDate === value){
-                                return task;
+        if(title.length !== 0 && dueDate.length !== 0) {
+            for(let project of data.projects){
+                for(let task of project.tasks) {
+                    if(task.title === taskEdit.titleInitial){
+                        task.title = title;
+                        task.description = description;
+                        task.dueDate = dueDate;
+                        task.priority = priority;
+    
+                        let tasksDates = project.tasks.map(value => {
+                            const date = value.dueDate;
+                            return date;
+                        }).sort(compareAsc);
+                        let newTasksList = tasksDates.map(value => {
+                            for(let task of project.tasks) {
+                                if(task.dueDate === value){
+                                    return task;
+                                }
                             }
-                        }
-                    })
-                    project.tasks = newTasksList;
+                        })
+                        project.tasks = newTasksList;
+                    }
                 }
             }
+        } else {
+            alert('Give your task a title and/or a due date.');
         }
         event.preventDefault();
     })
+
     return {openWindow};
 })();
 export {taskControl};
