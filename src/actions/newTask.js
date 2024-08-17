@@ -29,6 +29,7 @@ export const newTask = (function() {
     const saveButton = form.makeButton('Save', 'submit');
     
     const renderWindow = function() {
+        form.clearMainAndHeader();
         const projects = dataHandler.getAllProjects();
         form.emptyDiv(projectsDiv);
         projectsInputs = form.makeCheckBoxList(projectsDiv, projects);

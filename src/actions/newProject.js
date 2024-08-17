@@ -4,6 +4,7 @@ import { dataHandler } from '../dataHandler';
 
 export const newProject = (function() {
     const form = new Form();
+    
     const nameLabel = form.makeLabel('Name');
     const nameInput = form.makeInput('name', 'text');
 
@@ -14,6 +15,7 @@ export const newProject = (function() {
     const saveButton = form.makeButton('Save', 'submit');
 
     const renderWindow = function() {
+        form.clearMainAndHeader();
         const tasks = dataHandler.getAllTasks();
         form.emptyDiv(tasksDiv);
         tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
