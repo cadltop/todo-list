@@ -10,22 +10,6 @@ export class Form extends mainWindow {
         label.innerHTML = text;
         return label;
     }
-    makeInput(id, type) {
-        const input = document.createElement('input');
-        input.id = this.replaceSpace(id);
-        input.type = type;
-        return input;
-    }
-    makeDiv(id) {
-        const div = document.createElement('div');
-        div.id = this.replaceSpace(id);
-        return div;
-    }
-    emptyDiv(div) {
-        while(div.lastChild){
-            div.lastChild.remove();
-        }
-    }
     makeButton(text, type) {
         const button = document.createElement('button');
         button.innerHTML = text;

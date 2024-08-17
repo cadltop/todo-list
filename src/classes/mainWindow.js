@@ -22,4 +22,21 @@ export class mainWindow extends Document {
         ? string.replace(' ', '-'): string).toLowerCase();
         return newString;
     }
+    emptyElement(element) {
+        while(element.lastChild){
+            element.lastChild.remove();
+        }
+    }
+    makeInput(id, type) {
+        const input = document.createElement('input');
+        if(id) input.id = this.replaceSpace(id);
+        input.type = type;
+        return input;
+    }
+    makeDiv(id, className) {
+        const div = document.createElement('div');
+        if(id) div.id = this.replaceSpace(id);
+        if(className) div.className  = className;
+        return div;
+    }
 }
