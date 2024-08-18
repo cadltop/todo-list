@@ -24,9 +24,12 @@ export class Form extends mainWindow {
     makeCheckBoxList(listDiv, listItems) {
         let inputList = [];
         for(let item of listItems) {
-            const checkBox = this.makeCheckBox(`${item.title}`);
-            listDiv.append(checkBox.input, checkBox.label);
-            inputList.push(checkBox.input);
+            if(item){
+                const checkBox = this.makeCheckBox(`${item.title}`);
+                listDiv.append(checkBox.input, checkBox.label);
+                inputList.push(checkBox.input);
+            }
+
         }
         return inputList;
     }

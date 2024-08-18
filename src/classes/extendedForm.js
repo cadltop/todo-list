@@ -6,7 +6,7 @@ export class ExtendedForm extends Form {
     makeCheckBoxList(listDiv, listItems) {
         let inputList = [];
         for(let item of listItems) {
-            if(item !== listItems[0]) {
+            if(item !== listItems[0] && item) {
                 const checkBox = this.makeCheckBox(`${item.name}`);
                 listDiv.append(checkBox.input, checkBox.label);
                 inputList.push(checkBox.input);
