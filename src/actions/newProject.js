@@ -18,7 +18,7 @@ export const newProject = (function() {
         form.clearMainAndHeader();
         const tasks = dataHandler.getAllTasks();
         form.emptyElement(tasksDiv);
-        tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
+        newProject.tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
 
         form.element.append(nameLabel, nameInput);
         if(tasks.length) form.element.append(tasksLabel, tasksDiv);
