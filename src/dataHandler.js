@@ -1,5 +1,4 @@
 import { data } from "./data";
-
 export const dataHandler = {
     getAllTasks() {
         return data.projects[0].tasks;
@@ -7,7 +6,12 @@ export const dataHandler = {
     getAllProjects() {
         return data.projects;
     },
-    updateProjects(project){
-        data.newProjects = project;
+    updateProjects(projects) {
+        data.newProjects = projects;
+    },
+    getProject(projectName) {
+        return data.projects.find((value) => {
+            if(value.name === projectName) return value;
+        })
     }
 }
