@@ -2,9 +2,10 @@ ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    max-width: 70%;
+    max-width: 60%;
     background-color: var(--light-green);
     margin-left: 45px;
+    min-height: 80%;
 }
 
 ul, li {
