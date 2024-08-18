@@ -1,6 +1,7 @@
 import { newTask } from '../actions/newTask.js';
 import { Task } from '../classes/task.js';
 import { data } from '../data.js';
+import { dataHandler } from '../dataHandler.js';
 import { taskEdit } from '../objects/taskEdit.js';
 import { compareAsc } from 'date-fns';
 
@@ -15,50 +16,28 @@ const taskControl = (function(){
 
         if(title.length !== 0 && dueDate.length !== 0) {
             const task = new Task(title, description, dueDate, priority);
+            const allTasks = dataHandler.getProject('All Tasks');
+            dataHandler.saveTask(task, allTasks);
+
             for(let checkBox of projectsInputs) {
                 if(checkBox.checked) {
-                    for(let project of data.projects){
-                        let nameToId = (project.name.match(' ') !== null) ? project.name.replace(' ', '-'): project.name;
-                        nameToId.toLowerCase();
+                    const allProjects = dataHandler.getAllProjects(); 
+                    for(let project of allProjects){
+                        let nameToId = ((project.name.match(' ') !== null)
+                        ? project.name.replace(' ', '-'): project.name).toLowerCase();
                         if(nameToId === checkBox.id){
-                            project.tasks.push(task);
-
-                            let tasksDates = project.tasks.map(value => {
-                                const date = value.dueDate;
-                                return date;
-                            }).sort(compareAsc);
-                            let newTasksList = tasksDates.map(value => {
-                                for(let task of project.tasks) {
-                                    if(task.dueDate === value){
-                                        return task;
-                                    }
-                                }
-                            })
-                            project.tasks = newTasksList;
+                            dataHandler.saveTask(task, project);
                         }
                     }
                 }
             }
-            data.projects[0].tasks.push(task);
-            let tasksDates = data.projects[0].tasks.map(value => {
-                const date = value.dueDate;
-                return date;
-            }).sort(compareAsc);
-            let newTasksList = tasksDates.map(value => {
-                for(let task of data.projects[0].tasks) {
-                    if(task.dueDate === value){
-                        return task;
-                    }
-                }
-            })
-            data.projects[0].tasks = newTasksList;
 
-            for(let p in newTask){
-                if(p === 'prioritySelect') {
-                    newTask[p].children[0].selected = true;
+            for(let propertie in newTask){
+                if(propertie === 'prioritySelect') {
+                    newTask[propertie].children[0].selected = true;
                     break;
                 } else {
-                    newTask[p].value = '';
+                    newTask[propertie].value = '';
                 }
             }
             for(let checkBox of projectsInputs) {checkBox.checked = false}
