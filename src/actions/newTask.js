@@ -38,7 +38,7 @@ export const newTask = (function() {
         form.element.append(descriptionLabel, descriptionTextarea);
         form.element.append(dueDateLabel, dueDateInput);
         form.element.append(priorityLabel, prioritySelect);
-        if(projectsInputs.length) form.element.append(projectsLabel, projectsDiv);
+        if(projects.length > 1) form.element.append(projectsLabel, projectsDiv);
         form.element.append(saveButton);
         form.setMainAndHeader('New Task');
     }
