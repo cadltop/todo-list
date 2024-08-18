@@ -21,7 +21,7 @@ export const newProject = (function() {
         newProject.tasksInputs = form.makeCheckBoxList(tasksDiv, tasks);
 
         form.element.append(nameLabel, nameInput);
-        if(tasks.length) form.element.append(tasksLabel, tasksDiv);
+        if(tasksInputs.length) form.element.append(tasksLabel, tasksDiv);
         form.element.append(saveButton);
         form.setMainAndHeader('New Project');
     }
