@@ -57,20 +57,10 @@ export const projectView = (function(){
                 if(projectName === 'All Tasks'){
                     const projects = dataHandler.getAllProjects();
                     for(let p = 1; p < projects.length; p++){
-                        for(let t = 0; t < projects[p].tasks.length; t++) {
-                            if(projects[p].tasks[t].title === project.tasks[i].title){
-                                delete projects[p].tasks[t];
-                                projects[p].tasks = projects[p].tasks.filter((value) => {
-                                    return value !== undefined;
-                                })                
-                            }
-                        }
+                        dataHandler.deleteTask(task.title, projects[p]);
                     }
                 }
-                delete project.tasks[i];
-                project.tasks = project.tasks.filter((value) => {
-                    return value !== undefined;
-                })
+                dataHandler.deleteTask(task.title, project);
                 list.element.removeChild(listItem);
             })
 
