@@ -15,7 +15,6 @@ actions[1].addEventListener('click', () => {
 })
 
 allTasks.addEventListener('click', () => {
-    emptyMain();
     projectControl.openProject('All Tasks');
 })
 function emptyMain() {
