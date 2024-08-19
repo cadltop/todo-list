@@ -1,9 +1,7 @@
 import { newTask } from '../actions/newTask.js';
-import { Task } from '../classes/task.js';
-import { data } from '../data.js';
-import { dataHandler } from '../dataHandler.js';
 import { taskEdit } from '../objects/taskEdit.js';
-import { compareAsc } from 'date-fns';
+import { Task } from '../classes/task.js';
+import { dataHandler } from '../dataHandler.js';
 
 const taskControl = (function(){
     const openWindow = newTask.renderWindow;
@@ -53,26 +51,16 @@ const taskControl = (function(){
         const priority = taskEdit.prioritySelect.value;
         
         if(title.length !== 0 && dueDate.length !== 0) {
-            for(let project of data.projects){
+            const allProjects = dataHandler.getAllProjects(); 
+            for(let project of allProjects){
                 for(let task of project.tasks) {
                     if(task.title === taskEdit.titleInitial){
                         task.title = title;
                         task.description = description;
                         task.dueDate = dueDate;
                         task.priority = priority;
-    
-                        let tasksDates = project.tasks.map(value => {
-                            const date = value.dueDate;
-                            return date;
-                        }).sort(compareAsc);
-                        let newTasksList = tasksDates.map(value => {
-                            for(let task of project.tasks) {
-                                if(task.dueDate === value){
-                                    return task;
-                                }
-                            }
-                        })
-                        project.tasks = newTasksList;
+
+                        dataHandler.sortTasks(project);
                     }
                 }
             }
