@@ -1,8 +1,22 @@
 import { data } from "./data";
 import { compareAsc } from 'date-fns';
+
 export const dataHandler = {
     saveTask(task, project) {
         project.tasks.push(task);
+        this.sortTasks(project);
+    },
+    deleteTask(taskTitle, project) {
+        for(let t = 0; t < project.tasks.length; t++) {
+            if(project.tasks[t].title === taskTitle){
+                delete project.tasks[t];
+                projects.tasks = project.tasks.filter((value) => {
+                    return value !== undefined;
+                })                
+            }
+        }
+    },
+    sortTasks(project) {
         project.tasks = (function(){
             let tasksDates = project.tasks.map(value => {
                 return value.dueDate;
@@ -15,16 +29,6 @@ export const dataHandler = {
                 }
             })
         })();
-    },
-    deleteTask(taskTitle, project) {
-        for(let t = 0; t < project.tasks.length; t++) {
-            if(project.tasks[t].title === taskTitle){
-                delete project.tasks[t];
-                projects.tasks = project.tasks.filter((value) => {
-                    return value !== undefined;
-                })                
-            }
-        }
     },
     getAllTasks() {
         return data.projects[0].tasks;
