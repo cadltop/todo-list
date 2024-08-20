@@ -2,6 +2,7 @@ import './projectView.css';
 import { List } from '../classes/list.js';
 import { dataHandler } from '../dataHandler.js';
 import { taskEdit } from './taskEdit.js';
+import { format } from 'date-fns';
 
 export const projectView = (function(){
     const list = new List();
@@ -42,7 +43,7 @@ export const projectView = (function(){
             const titleP = list.makeP(task.title, undefined);
             const titleImg = list.makeImg('../res/icons/text-box.svg', 'tasks icon');
             titleDiv.append(titleP, titleImg);
-            const dueDateP = list.makeP(task.dueDate, 'due-date');
+            const dueDateP = list.makeP(format(task.dueDate, "PPpp"), 'due-date');
             textDiv.append(titleDiv, dueDateP);
 
             const optionsDiv = list.makeDiv(undefined, 'options');
