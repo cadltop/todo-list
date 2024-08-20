@@ -1,8 +1,8 @@
 import 'normalize.css';
 import './index.css';
-
 import { taskControl } from './controllers/taskControl.js';
 import { projectControl } from './controllers/projectControl.js';
+import { dataHandler } from './dataHandler.js';
 
 const actions = document.querySelectorAll('.action');
 const allTasks = document.querySelector('.project.all');
@@ -17,6 +17,7 @@ actions[1].addEventListener('click', () => {
 allTasks.addEventListener('click', () => {
     projectControl.openProject('All Tasks');
 })
+
 function emptyMain() {
     const mainSection = document.querySelector('main');
     while(mainSection.lastChild !== document.querySelector('h1')){
@@ -24,4 +25,79 @@ function emptyMain() {
     }
     mainSection.lastChild.innerHTML = '';
 }
-export {emptyMain};
+function addProject(projectName, allProjects) {
+    const projectDiv = document.createElement('div');
+    projectDiv.className = 'project';
+
+    const projectIcon = document.createElement('img');
+    projectIcon.src = '../res/icons/folder.svg';
+    projectIcon.alt = 'project icon';
+
+    const projectP = document.createElement('p');
+    projectP.innerHTML = projectName;
+
+    projectDiv.addEventListener('click', () => {
+        projectControl.openProject(projectName);
+    })
+
+    const editIcon = document.createElement('img');
+    editIcon.src = '../res/icons/pencil-box.svg';
+    editIcon.alt = 'edit icon';
+    editIcon.addEventListener('click', (event) => {
+        projectControl.editProject(projectName);
+        event.stopPropagation();
+    })
+    const deleteIcon = document.createElement('img');
+    deleteIcon.src = '../res/icons/file-excel-box.svg';
+    deleteIcon.alt = 'delete icon';
+    deleteIcon.addEventListener('click', (event) => {
+        const projectName = getProjectName(projectP.innerHTML);
+        const projectContainer = (function() {
+            const projectsContainers = document.querySelectorAll('section#projects > .project');
+
+            for(let pc of projectsContainers) {
+                const projectContainerP = pc.querySelector('p');
+                if(projectContainerP.innerHTML ===  projectName.innerHTML){
+                    return pc;
+                }
+            }
+        })();
+        
+        for(let p = 1; p < allProjects.length; p++) {
+            if(allProjects[p].name === projectName.innerHTML){
+                delete allProjects[p];
+                dataHandler.updateProjects = allProjects.filter((value) => {
+                    return value !== undefined;
+                })
+                projectContainer.remove();
+                emptyMain();
+                break;
+            }
+        }
+        event.stopPropagation();
+    })
+
+    projectDiv.addEventListener('mouseenter', () => {
+        projectDiv.append(editIcon, deleteIcon);
+    })
+    projectDiv.addEventListener('mouseleave', () => {
+        while(projectDiv.lastElementChild.tagName.toLowerCase() !== 'p'){
+            projectDiv.lastElementChild.remove();
+        }
+    })
+
+    const projectsSection = document.querySelector('section#projects');
+
+    projectDiv.append(projectIcon, projectP);
+    projectsSection.append(projectDiv);
+}
+function getProjectName(name) {
+    const projectsNames = document.querySelectorAll('section#projects > .project > p');
+            
+    for(let pn of projectsNames) {
+        if(pn.innerHTML === name){
+            return pn;
+        }
+    }
+}
+export {addProject, getProjectName};
