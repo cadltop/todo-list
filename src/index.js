@@ -3,6 +3,7 @@ import './index.css';
 import { taskControl } from './controllers/taskControl.js';
 import { projectControl } from './controllers/projectControl.js';
 import { dataHandler } from './dataHandler.js';
+import { Project } from './classes/project.js';
 
 const actions = document.querySelectorAll('.action');
 const allTasks = document.querySelector('.project.all');
@@ -14,6 +15,8 @@ actions[1].addEventListener('click', () => {
     projectControl.openWindow();
 })
 
+const project = new Project('All Tasks');
+dataHandler.saveProject(project);
 allTasks.addEventListener('click', () => {
     projectControl.openProject('All Tasks');
 })
