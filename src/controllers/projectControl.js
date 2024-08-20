@@ -4,7 +4,7 @@ import { data } from '../data.js';
 import { projectView } from '../objects/projectView.js';
 import { emptyMain } from '../index.js';
 import { projectEdit } from '../objects/projectEdit.js';
-import { compareAsc } from 'date-fns';
+import { dataHandler } from '../dataHandler.js';
 
 const projectControl = (function() {
     const openWindow = newProject.renderWindow;
@@ -14,34 +14,24 @@ const projectControl = (function() {
     newProject.saveButton.addEventListener('click', (event) => {
         let name = newProject.nameInput.value;
         if(name.length !== 0) {
-            const tasks = newProject.tasksInputs;
+            const tasksInputs = newProject.tasksInputs;
         
             const project = new Project(name);
-            for(let checkBox of tasks) {
+            const projects = dataHandler.getAllProjects();
+
+            for(let checkBox of tasksInputs) {
                 if(checkBox.checked) {
-                    for(let task of data.projects[0].tasks){
-                        let titleToId = (task.title.match(' ') !== null) ? task.title.replace(' ', '-'): task.title;
-                        titleToId.toLowerCase();
-                        if(titleToId === checkBox.id){
-                            project.tasks.push(task);
-                            
-                            let tasksDates = project.tasks.map(value => {
-                                const date = value.dueDate;
-                                return date;
-                            }).sort(compareAsc);
-                            let newTasksList = tasksDates.map(value => {
-                                for(let task of project.tasks) {
-                                    if(task.dueDate === value){
-                                        return task;
-                                    }
-                                }
-                            })
-                            project.tasks = newTasksList;
+                    const allTasks = dataHandler.getAllTasks();
+                    for(let task of allTasks) {
+                        let titleToId = ((task.title.match(' ') !== null) 
+                        ? task.title.replace(' ', '-') : task.title).toLowerCase();
+                        if(titleToId === checkBox.id) {
+                            dataHandler.saveTask(task, project);
                         }
                     }
                 }
             }
-            data.projects.push(project);
+            projects.push(project);
 
             const projectDiv = document.createElement('div');
             projectDiv.className = 'project';
@@ -54,7 +44,6 @@ const projectControl = (function() {
             projectP.innerHTML = project.name;
 
             projectDiv.addEventListener('click', () => {
-                emptyMain();
                 projectControl.openProject(project.name);
             })
 
@@ -89,10 +78,10 @@ const projectControl = (function() {
                     }
                 })();
                 
-                for(let p = 1; p < data.projects.length; p++) {
-                    if(data.projects[p].name === projectName.innerHTML){
-                        delete data.projects[p];
-                        data.newProjects = data.projects.filter((value) => {
+                for(let p = 1; p < projects.length; p++) {
+                    if(projects[p].name === projectName.innerHTML){
+                        delete projects[p];
+                        data.newProjects = projects.filter((value) => {
                             return value !== undefined;
                         })
                         projectContainer.remove();
@@ -118,7 +107,7 @@ const projectControl = (function() {
             projectsSection.append(projectDiv);
 
             newProject.nameInput.value = '';
-            for(let checkBox of tasks) {checkBox.checked = false}
+            for(let checkBox of tasksInputs) {checkBox.checked = false}
         } else {
             alert('Give your project a name.');
         }
