@@ -28,6 +28,10 @@ function emptyMain() {
     }
     mainSection.lastChild.innerHTML = '';
 }
+const allProjects = dataHandler.getAllProjects();
+for(let p = 1; p < allProjects.length; p++) {
+    addProject(allProjects[p].name);
+}
 function addProject(projectName) {
     const projectDiv = document.createElement('div');
     projectDiv.className = 'project';
