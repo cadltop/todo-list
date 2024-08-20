@@ -10,7 +10,7 @@ export const dataHandler = {
         for(let t = 0; t < project.tasks.length; t++) {
             if(project.tasks[t].title === taskTitle){
                 delete project.tasks[t];
-                projects.tasks = project.tasks.filter((value) => {
+                project.tasks = project.tasks.filter((value) => {
                     return value !== undefined;
                 })                
             }
@@ -35,6 +35,21 @@ export const dataHandler = {
     },
     saveProject(project) {
         data.projects.push(project);
+    },
+    deleteProject(projectName) {
+        for(let p = 1; p < data.projects.length; p++) {
+            if(data.projects[p].name === projectName){
+                delete data.projects[p];
+                const newArray = data.projects.filter((value) => {
+                    return value !== undefined;
+                })
+                this.updateProjects(newArray) ;
+                break;
+            }
+        }
+    },
+    changeProjectName(project, newName) {
+        project.name = newName;
     },
     getAllProjects() {
         return data.projects;

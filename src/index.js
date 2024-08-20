@@ -25,7 +25,7 @@ function emptyMain() {
     }
     mainSection.lastChild.innerHTML = '';
 }
-function addProject(projectName, allProjects) {
+function addProject(projectName) {
     const projectDiv = document.createElement('div');
     projectDiv.className = 'project';
 
@@ -62,18 +62,10 @@ function addProject(projectName, allProjects) {
                 }
             }
         })();
-        
-        for(let p = 1; p < allProjects.length; p++) {
-            if(allProjects[p].name === projectName.innerHTML){
-                delete allProjects[p];
-                dataHandler.updateProjects = allProjects.filter((value) => {
-                    return value !== undefined;
-                })
-                projectContainer.remove();
-                emptyMain();
-                break;
-            }
-        }
+        dataHandler.deleteProject(projectName.innerHTML);
+        projectContainer.remove();
+        emptyMain();
+
         event.stopPropagation();
     })
 

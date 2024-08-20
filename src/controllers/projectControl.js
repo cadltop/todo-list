@@ -49,8 +49,8 @@ export const projectControl = (function() {
             
             const projects = dataHandler.getAllProjects();
             for(let project of projects){
-                if(project.name === projectEdit.nameInitial){
-                    project.name = name;
+                if(project.name === projectEdit.nameInitial) {
+                    dataHandler.changeProjectName(project, name);
                     projectName.innerHTML = name;
                 }
             }
