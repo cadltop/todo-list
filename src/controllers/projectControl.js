@@ -30,7 +30,7 @@ export const projectControl = (function() {
                     }
                 }
             }
-            projects.push(project);
+            dataHandler.saveProject(project);
 
             addProject(project.name, projects);
 

@@ -33,6 +33,9 @@ export const dataHandler = {
     getAllTasks() {
         return data.projects[0].tasks;
     },
+    saveProject(project) {
+        data.projects.push(project);
+    },
     getAllProjects() {
         return data.projects;
     },
