@@ -15,6 +15,7 @@ export const dataHandler = {
                 })                
             }
         }
+        data.updateStorage(data.projects);
     },
     sortTasks(project) {
         project.tasks = (function(){
@@ -29,12 +30,22 @@ export const dataHandler = {
                 }
             })
         })();
+        data.updateStorage(data.projects);
     },
     getAllTasks() {
         return data.projects[0].tasks;
     },
     saveProject(project) {
-        data.projects.push(project);
+        switch(project.name){
+            case 'All Tasks':
+                if(data.projects[0]) {
+                    break;
+                }
+            default:
+                data.projects.push(project);
+                data.updateStorage(data.projects);
+                break;
+        }
     },
     deleteProject(projectName) {
         for(let p = 1; p < data.projects.length; p++) {
@@ -47,9 +58,11 @@ export const dataHandler = {
                 break;
             }
         }
+        data.updateStorage(data.projects);
     },
     changeProjectName(project, newName) {
         project.name = newName;
+        data.updateStorage(data.projects);
     },
     getAllProjects() {
         return data.projects;
