@@ -3,7 +3,7 @@ import { taskEdit } from '../objects/taskEdit.js';
 import { Task } from '../classes/task.js';
 import { dataHandler } from '../dataHandler.js';
 
-const taskControl = (function(){
+export const taskControl = (function(){
     const openWindow = newTask.renderWindow;
     newTask.saveButton.addEventListener('click', (event) => {
         const title = newTask.titleInput.value;
@@ -72,4 +72,3 @@ const taskControl = (function(){
 
     return {openWindow};
 })();
-export {taskControl};

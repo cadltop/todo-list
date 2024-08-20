@@ -1,11 +1,11 @@
 import { addProject, getProjectName } from '../index.js';
 import { newProject } from '../actions/newProject.js';
-import { projectView } from '../objects/projectView.js';
 import { projectEdit } from '../objects/projectEdit.js';
+import { projectView } from '../objects/projectView.js';
 import { Project } from '../classes/project.js';
 import { dataHandler } from '../dataHandler.js';
 
-const projectControl = (function() {
+export const projectControl = (function() {
     const openWindow = newProject.renderWindow;
     const openProject = projectView.renderWindow;
     const editProject = projectEdit.renderWindow;
@@ -62,4 +62,3 @@ const projectControl = (function() {
     
     return {openWindow, openProject, editProject};
 })();
-export {projectControl};
