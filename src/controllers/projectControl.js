@@ -1,6 +1,5 @@
 import { newProject } from '../actions/newProject.js';
 import { Project } from '../classes/project.js';
-import { data } from '../data.js';
 import { projectView } from '../objects/projectView.js';
 import { emptyMain } from '../index.js';
 import { projectEdit } from '../objects/projectEdit.js';
@@ -81,7 +80,7 @@ const projectControl = (function() {
                 for(let p = 1; p < projects.length; p++) {
                     if(projects[p].name === projectName.innerHTML){
                         delete projects[p];
-                        data.newProjects = projects.filter((value) => {
+                        dataHandler.updateProjects = projects.filter((value) => {
                             return value !== undefined;
                         })
                         projectContainer.remove();
@@ -127,7 +126,8 @@ const projectControl = (function() {
                 }
             })();
             
-            for(let project of data.projects){
+            const projects = dataHandler.getAllProjects();
+            for(let project of projects){
                 if(project.name === projectEdit.nameInitial){
                     project.name = name;
                     projectName.innerHTML = name;
